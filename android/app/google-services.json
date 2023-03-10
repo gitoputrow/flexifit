@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1038745400119",
+    "project_id": "paindatabase-9f08d",
+    "storage_bucket": "paindatabase-9f08d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038745400119:android:da7735590305d1dd6de0b2",
+        "android_client_info": {
+          "package_name": "com.example.pain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038745400119-hi3rqhilv59b49bvh64s9supubu3sut3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCF2L1K-qCdX0EVtkBbKfj6SDTo-Fc78y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038745400119-hi3rqhilv59b49bvh64s9supubu3sut3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
