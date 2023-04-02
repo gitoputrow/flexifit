@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -30,12 +31,12 @@ class ChallangeLevelCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         child: Stack(
           children: [
-            Image.network(
-              imageUrl,
+            CachedNetworkImage(
+              imageUrl : imageUrl,
               height: height,
               width: width,
               fit: BoxFit.cover,
-              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+              errorWidget: (context, url, error) {
                 return Container(
                   color: Colors.white,
                   child: Center(
@@ -49,15 +50,14 @@ class ChallangeLevelCard extends StatelessWidget {
                   ),
                 );
               },
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
+              progressIndicatorBuilder: (context, url, progress) {
+                
+              
+                
                 return Center(
                   child: CircularProgressIndicator(
                     color: Color.fromRGBO(170, 5, 27, 1),
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                            loadingProgress.expectedTotalBytes!
-                        : null,
+                    value: progress.progress,
                   ),
                 );
               },

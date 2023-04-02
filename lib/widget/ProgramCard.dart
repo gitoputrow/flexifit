@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -53,13 +54,12 @@ class ProgramCard extends StatelessWidget {
                         onPressed: cameraTap,
                       ) : Text(""),
                     )
-                  : Image.network(
-                      imageUrl!,
+                  : CachedNetworkImage(
+                      imageUrl:  imageUrl!,
                       height: height,
                       width: width,
                       fit: BoxFit.cover,
-                      errorBuilder:
-                          (BuildContext context, Object exception, StackTrace? stackTrace) {
+                      errorWidget: (context, url, error) {
                         return Container(
                           color: Colors.white,
                           child: Center(
@@ -73,15 +73,11 @@ class ProgramCard extends StatelessWidget {
                           ),
                         );
                       },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
+                      progressIndicatorBuilder: (context, url, progress) {
                         return Center(
                           child: CircularProgressIndicator(
                             color: Color.fromRGBO(170, 5, 27, 1),
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
+                            value:progress.progress,
                           ),
                         );
                       },

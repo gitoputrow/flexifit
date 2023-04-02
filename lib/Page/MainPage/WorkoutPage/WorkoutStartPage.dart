@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
@@ -22,13 +23,13 @@ class WorkoutStartPage extends GetView<DashboardController> {
               child: Stack(
                 children: [
                   Obx(
-                    () => Image.network(
-                      controller.workoutData.data![controller.workoutIndex].previewPicture!,
+                    () => CachedNetworkImage(
+                      imageUrl : controller.workoutData.data![controller.workoutIndex].previewPicture!,
                       height: MediaQuery.of(context).size.height / 1.5,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
-                      errorBuilder:
-                          (BuildContext context, Object exception, StackTrace? stackTrace) {
+                      errorWidget:
+                          (context, url, error) {
                         return Container(
                           color: Colors.white,
                           child: Center(
@@ -42,15 +43,11 @@ class WorkoutStartPage extends GetView<DashboardController> {
                           ),
                         );
                       },
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
+                      progressIndicatorBuilder: (context, url, progress) {
                         return Center(
                           child: CircularProgressIndicator(
                             color: Color.fromRGBO(170, 5, 27, 1),
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
+                            value: progress.progress,
                           ),
                         );
                       },

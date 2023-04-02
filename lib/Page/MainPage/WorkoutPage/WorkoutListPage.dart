@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
@@ -108,13 +109,12 @@ class WorkoutListPage extends GetView<DashboardController> {
                                     width: 110,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        controller.workoutData.data![i].picture!,
+                                      child: CachedNetworkImage(
+                                        imageUrl : controller.workoutData.data![i].picture!,
                                         height: 110,
                                         width: 110,
                                         fit: BoxFit.cover,
-                                        errorBuilder: (BuildContext context, Object exception,
-                                            StackTrace? stackTrace) {
+                                        errorWidget: (context, url, error) {
                                           return Container(
                                             color: Colors.white,
                                             child: Center(
@@ -128,15 +128,12 @@ class WorkoutListPage extends GetView<DashboardController> {
                                             ),
                                           );
                                         },
-                                        loadingBuilder: (context, child, loadingProgress) {
-                                          if (loadingProgress == null) return child;
+                                        progressIndicatorBuilder: (context, url, progress) {
+                                          
                                           return Center(
                                             child: CircularProgressIndicator(
                                               color: Color.fromRGBO(170, 5, 27, 1),
-                                              value: loadingProgress.expectedTotalBytes != null
-                                                  ? loadingProgress.cumulativeBytesLoaded /
-                                                      loadingProgress.expectedTotalBytes!
-                                                  : null,
+                                              value: progress.progress,
                                             ),
                                           );
                                         },
