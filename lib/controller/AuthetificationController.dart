@@ -234,7 +234,7 @@ class AuthentificationController extends GetxController {
       if (usernameExist == true) {
         if (passCheck == true) {
           await StorageProvider.setUserToken(idToken);
-          Get.offAllNamed("/dashboard");
+          Get.offAllNamed("/dashboard",arguments: 0);
         } else {
           Get.back();
           ToastMessageCustom.ToastMessage("Wrong Password", Color.fromARGB(204, 245, 60, 13));
@@ -338,49 +338,12 @@ class AuthentificationController extends GetxController {
                   "CardioIntermediate": 0,
                 })));
         await StorageProvider.setUserToken(id);
-        Get.offAllNamed("/dashboard");
+        Get.offAllNamed("/dashboard",arguments: 0);
       } catch (e) {
         Get.back();
         ToastMessageCustom.ToastMessage(e.toString(), Color.fromARGB(204, 245, 60, 13));
       }
     }
-    // final collectExist = await firestore.collection("data${username.value.text}").get();
-    // if (collectExist.size != 0) {
-    //   Get.back();
-    //   ToastMessageCustom.ToastMessage("Username already taken", Color.fromARGB(204, 245, 60, 13));
-    // } else {
-    //   try {
-    //     await firestore
-    //         .collection("data${username.value.text}")
-    //         .doc("data")
-    //         .set(dataUser)
-    //         .whenComplete(() => firestore
-    //             .collection("data${username.value.text}")
-    //             .doc("targetMuscle")
-    //             .set(muscledata)
-    //             .whenComplete(
-    //                 () => firestore.collection("data${username.value.text}").doc("challange").set({
-    //                       "FullBodyBeginner": 0,
-    //                       "AbsBeginner": 0,
-    //                       "TricepsBeginner": 0,
-    //                       "BicepsBeginner": 0,
-    //                       "ChestBeginner": 0,
-    //                       "LegsBeginner": 0,
-    //                       "CardioBeginner": 0,
-    //                       "FullBodyIntermediate": 0,
-    //                       "AbsIntermediate": 0,
-    //                       "TricepsIntermediate": 0,
-    //                       "BicepsIntermediate": 0,
-    //                       "ChestIntermediate": 0,
-    //                       "LegsIntermediate": 0,
-    //                       "CardioIntermediate": 0,
-    //                     })));
-    //     Get.offAllNamed("/dashboard");
-    //   } catch (e) {
-    //     Get.back();
-    //     ToastMessageCustom.ToastMessage(e.toString(), Color.fromARGB(204, 245, 60, 13));
-    //   }
-    // }
   }
 
   continueRegistFunc() {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
+import 'package:pain/controller/WorkoutController.dart';
 import 'package:pain/widget/ChallangeLevelCard.dart';
 
-class ChallangeLevelPage extends GetView<DashboardController> {
+class ChallangeLevelPage extends GetView<WorkoutController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

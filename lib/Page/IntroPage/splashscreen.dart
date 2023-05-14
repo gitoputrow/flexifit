@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     Timer(Duration(seconds: 3), () async {
       final user = await StorageProvider.getUserToken();
       if (user != null) {
-        Get.offNamed("/dashboard");
+        Get.offNamed("/dashboard",arguments: 0);
       } else {
         Get.off(HomeScreen());
       }

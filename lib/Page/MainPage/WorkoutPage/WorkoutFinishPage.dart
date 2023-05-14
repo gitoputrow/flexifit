@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
 
+import '../../../controller/WorkoutController.dart';
 import '../../../widget/ButtonCustomMain.dart';
 
-class WorkoutFinishPage extends GetView<DashboardController> {
+class WorkoutFinishPage extends GetView<WorkoutController> {
   const WorkoutFinishPage({super.key});
 
   @override

@@ -13,6 +13,7 @@ class ChallangePage extends GetView<DashboardController> {
       child: Scaffold(
         backgroundColor: Color.fromRGBO(10, 12, 13, 1),
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -51,7 +52,7 @@ class ChallangePage extends GetView<DashboardController> {
                           onTap: () async {
                             controller.challangeIndex = i;
                             await controller.getFinishedData();
-                            Get.toNamed("/challangelevel");
+                            Get.toNamed("/challangelevel",arguments: [controller.finishedChallange,controller.workoutData,controller.challangeIndex,controller.challangeData]);
                           },
                           child: ChallangeCard(
                               height: 125,

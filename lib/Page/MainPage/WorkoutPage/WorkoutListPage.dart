@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/widget/ButtonCustomMain.dart';
 
-class WorkoutListPage extends GetView<DashboardController> {
+import '../../../controller/WorkoutController.dart';
+
+class WorkoutListPage extends GetView<WorkoutController> {
   const WorkoutListPage({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +17,7 @@ class WorkoutListPage extends GetView<DashboardController> {
         body: Stack(
           children: [
             SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -26,13 +29,12 @@ class WorkoutListPage extends GetView<DashboardController> {
                           bottomRight: Radius.circular(30), bottomLeft: Radius.circular(30)),
                       child: Stack(
                         children: [
-                          Image.network(
-                            controller.workoutData.picture!,
+                          CachedNetworkImage(
+                            imageUrl: controller.workoutData.picture!,
                             height: MediaQuery.of(context).size.height / 1.5,
                             width: MediaQuery.of(context).size.width,
                             fit: BoxFit.cover,
-                            errorBuilder:
-                                (BuildContext context, Object exception, StackTrace? stackTrace) {
+                            errorWidget: (context, url, error) {
                               return Container(
                                 color: Colors.white,
                                 child: Center(
@@ -46,15 +48,11 @@ class WorkoutListPage extends GetView<DashboardController> {
                                 ),
                               );
                             },
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
+                            progressIndicatorBuilder: (context, url, progress) {
                               return Center(
                                 child: CircularProgressIndicator(
                                   color: Color.fromRGBO(170, 5, 27, 1),
-                                  value: loadingProgress.expectedTotalBytes != null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+                                  value: progress.progress,
                                 ),
                               );
                             },
@@ -110,7 +108,7 @@ class WorkoutListPage extends GetView<DashboardController> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: CachedNetworkImage(
-                                        imageUrl : controller.workoutData.data![i].picture!,
+                                        imageUrl: controller.workoutData.data![i].picture!,
                                         height: 110,
                                         width: 110,
                                         fit: BoxFit.cover,
@@ -129,7 +127,6 @@ class WorkoutListPage extends GetView<DashboardController> {
                                           );
                                         },
                                         progressIndicatorBuilder: (context, url, progress) {
-                                          
                                           return Center(
                                             child: CircularProgressIndicator(
                                               color: Color.fromRGBO(170, 5, 27, 1),

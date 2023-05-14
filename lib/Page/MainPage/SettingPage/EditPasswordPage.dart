@@ -4,10 +4,10 @@ import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/widget/TextFieldSettingCustom.dart';
 
-
+import '../../../controller/SettingController.dart';
 import '../../../widget/ButtonCustomMain.dart';
 
-class EditPasswordPage extends GetView<DashboardController> {
+class EditPasswordPage extends GetView<SettingController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,7 +18,7 @@ class EditPasswordPage extends GetView<DashboardController> {
           backgroundColor: Color.fromRGBO(47, 47, 47, 1),
           body: SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height/1.045,
+              height: MediaQuery.of(context).size.height / 1.045,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -29,8 +29,8 @@ class EditPasswordPage extends GetView<DashboardController> {
                         alignment: Alignment.center,
                         child: Text(
                           "Edit Password",
-                          style:
-                              TextStyle(fontSize: 24, fontFamily: 'PoppinsBoldSemi', color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 24, fontFamily: 'PoppinsBoldSemi', color: Colors.white),
                         ),
                       ),
                       Container(
@@ -39,7 +39,7 @@ class EditPasswordPage extends GetView<DashboardController> {
                           icon: Image.asset("asset/Image/backsetting.png"),
                           iconSize: 40,
                           onPressed: () {
-                            Navigator.pop(context);
+                            controller.getBackEPassword();
                           },
                         ),
                       )
@@ -74,7 +74,8 @@ class EditPasswordPage extends GetView<DashboardController> {
                                         height: 30,
                                       ),
                                 onPressed: () {
-                                  controller.oldPassView = controller.oldPassView == false ? true : false;
+                                  controller.oldPassView =
+                                      controller.oldPassView == false ? true : false;
                                 },
                               ),
                             ),
@@ -105,7 +106,8 @@ class EditPasswordPage extends GetView<DashboardController> {
                                         height: 30,
                                       ),
                                 onPressed: () {
-                                  controller.newPassView = controller.newPassView == false ? true : false;
+                                  controller.newPassView =
+                                      controller.newPassView == false ? true : false;
                                 },
                               ),
                             ),

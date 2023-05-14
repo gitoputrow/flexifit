@@ -13,8 +13,10 @@ import 'package:pain/Page/MainPage/WorkoutPage/WorkoutStartPage.dart';
 import 'package:pain/Page/registerpage/RegisterPage.dart';
 import 'package:pain/binding/AuthentificationBinding.dart';
 import 'package:pain/binding/DashboardBinding.dart';
+import 'package:pain/binding/WorkoutBinding.dart';
 
 import 'Page/IntroPage/LoginPage.dart';
+import 'binding/SettingBinding.dart';
 
 class appRoutes {
   static final pages = <GetPage>[
@@ -35,39 +37,39 @@ class appRoutes {
     ),
     GetPage(name: "/challangelevel", 
     page: () => ChallangeLevelPage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/workoutlist", 
     page: () => WorkoutListPage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/workoutstart", 
     page: () => WorkoutStartPage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/workoutrest", 
     page: () => WorkoutRestPage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/workoutfinish", 
     page: () => WorkoutFinishPage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/workoutprepare", 
     page: () => WorkoutPreparePage(),
-    binding: DashboardBinding()
+    binding: WorkoutBinding()
     ),
     GetPage(name: "/settingpage", 
     page: () => SettingPage(),
-    binding: DashboardBinding()
+    binding: SettingBinding()
     ),
     GetPage(name: "/editprofilepage", 
     page: () => EditProfilePage(),
-    binding: DashboardBinding()
+    binding: SettingBinding()
     ),
     GetPage(name: "/editpasswordpage", 
     page: () => EditPasswordPage(),
-    binding: DashboardBinding()
+    binding: SettingBinding()
     ),
   ];
 }

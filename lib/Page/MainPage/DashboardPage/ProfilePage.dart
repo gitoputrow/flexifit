@@ -21,6 +21,7 @@ class ProfilePage extends GetView<DashboardController> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(10, 12, 13, 1),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         controller: controller.scrollController.value,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

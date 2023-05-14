@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:pain/Page/MainPage/WorkoutPage/WorkoutListPage.dart';
 import 'package:pain/controller/DashboardController.dart';
 
+import '../../../controller/WorkoutController.dart';
+
 class WorkoutPreparePage extends StatefulWidget {
   const WorkoutPreparePage({super.key});
 
@@ -17,7 +19,7 @@ class _WorkoutPreparePageState extends State<WorkoutPreparePage>
   int second = 11;
   Timer? timer;
 
-  final controller = Get.find<DashboardController>();
+  final controller = Get.find<WorkoutController>();
 
   late AnimationController controller_;
   @override

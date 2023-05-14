@@ -4,10 +4,11 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:pain/controller/DashboardController.dart';
 
+import '../../../controller/SettingController.dart';
 import '../../../widget/ButtonCustomMain.dart';
 import '../../../widget/TextFieldSettingCustom.dart';
 
-class EditProfilePage extends GetView<DashboardController> {
+class EditProfilePage extends GetView<SettingController> {
   const EditProfilePage({super.key});
 
   @override
@@ -41,7 +42,7 @@ class EditProfilePage extends GetView<DashboardController> {
                           icon: Image.asset("asset/Image/backsetting.png"),
                           iconSize: 40,
                           onPressed: () {
-                            Navigator.pop(context);
+                            controller.getBackEP();
                           },
                         ),
                       )

@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/widget/ButtonCustomMain.dart';
 
+import '../../../controller/SettingController.dart';
 import '../../../widget/CustomAlertDialog.dart';
 
-class SettingPage extends GetView<DashboardController> {
-  const SettingPage({super.key});
+class SettingPage extends GetView<SettingController> {
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class SettingPage extends GetView<DashboardController> {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: ButtonCustomMain(
                   onPressed: () {
-                    Get.toNamed("/editprofilepage",arguments: controller.user);
+                    Get.toNamed("/editprofilepage",);
                   },
                   title: "Edit Profile",
                   primary: Color.fromRGBO(255, 255, 255, 0.25),
@@ -62,7 +62,7 @@ class SettingPage extends GetView<DashboardController> {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: ButtonCustomMain(
                   onPressed: () {
-                    Get.toNamed("/editpasswordpage",arguments: controller.user);
+                    Get.toNamed("/editpasswordpage");
                   },
                   title: "Edit Password",
                   primary: Color.fromRGBO(255, 255, 255, 0.25),

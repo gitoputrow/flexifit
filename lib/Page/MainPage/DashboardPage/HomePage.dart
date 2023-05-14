@@ -78,6 +78,7 @@ class HomePage extends GetView<DashboardController> {
               width: MediaQuery.of(context).size.width,
               child: Obx(
                 () => PageView(
+                  physics: BouncingScrollPhysics(),
                 pageSnapping: true,
                 padEnds: true,
                 controller: PageController(viewportFraction: 0.87),

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
 
+import '../../../controller/WorkoutController.dart';
 import '../../../widget/ButtonCustomMain.dart';
 
-class WorkoutStartPage extends GetView<DashboardController> {
+class WorkoutStartPage extends GetView<WorkoutController> {
   const WorkoutStartPage({Key? key}) : super(key: key);
 
   @override
