@@ -1,35 +1,44 @@
 class UserData {
   String? _age;
-  ChallangeData? _challangeData;
+  ChallengeData? _challengeData;
+  int? _dislike;
   String? _gender;
   String? _goal;
   String? _height;
+  int? _like;
   String? _name;
   String? _pass;
   String? _photoprofile;
   String? _physical;
+  int? _post;
   List<TargetMuscle>? _targetMuscle;
   String? _username;
   String? _weight;
 
   UserData(
       {String? age,
-      ChallangeData? challangeData,
+      ChallengeData? challengeData,
+      int? dislike,
       String? gender,
       String? goal,
       String? height,
+      int? like,
       String? name,
       String? pass,
       String? photoprofile,
       String? physical,
+      int? post,
       List<TargetMuscle>? targetMuscle,
       String? username,
       String? weight}) {
     if (age != null) {
       this._age = age;
     }
-    if (challangeData != null) {
-      this._challangeData = challangeData;
+    if (challengeData != null) {
+      this._challengeData = challengeData;
+    }
+    if (dislike != null) {
+      this._dislike = dislike;
     }
     if (gender != null) {
       this._gender = gender;
@@ -39,6 +48,9 @@ class UserData {
     }
     if (height != null) {
       this._height = height;
+    }
+    if (like != null) {
+      this._like = like;
     }
     if (name != null) {
       this._name = name;
@@ -51,6 +63,9 @@ class UserData {
     }
     if (physical != null) {
       this._physical = physical;
+    }
+    if (post != null) {
+      this._post = post;
     }
     if (targetMuscle != null) {
       this._targetMuscle = targetMuscle;
@@ -65,15 +80,19 @@ class UserData {
 
   String? get age => _age;
   set age(String? age) => _age = age;
-  ChallangeData? get challangeData => _challangeData;
-  set challangeData(ChallangeData? challangeData) =>
-      _challangeData = challangeData;
+  ChallengeData? get challengeData => _challengeData;
+  set challengeData(ChallengeData? challengeData) =>
+      _challengeData = challengeData;
+  int? get dislike => _dislike;
+  set dislike(int? dislike) => _dislike = dislike;
   String? get gender => _gender;
   set gender(String? gender) => _gender = gender;
   String? get goal => _goal;
   set goal(String? goal) => _goal = goal;
   String? get height => _height;
   set height(String? height) => _height = height;
+  int? get like => _like;
+  set like(int? like) => _like = like;
   String? get name => _name;
   set name(String? name) => _name = name;
   String? get pass => _pass;
@@ -82,6 +101,8 @@ class UserData {
   set photoprofile(String? photoprofile) => _photoprofile = photoprofile;
   String? get physical => _physical;
   set physical(String? physical) => _physical = physical;
+  int? get post => _post;
+  set post(int? post) => _post = post;
   List<TargetMuscle>? get targetMuscle => _targetMuscle;
   set targetMuscle(List<TargetMuscle>? targetMuscle) =>
       _targetMuscle = targetMuscle;
@@ -92,16 +113,19 @@ class UserData {
 
   UserData.fromJson(Map<String, dynamic> json) {
     _age = json['age'];
-    _challangeData = json['challangeData'] != null
-        ? new ChallangeData.fromJson(json['challangeData'])
+    _challengeData = json['challengeData'] != null
+        ? new ChallengeData.fromJson(json['challengeData'])
         : null;
+    _dislike = json['dislike'];
     _gender = json['gender'];
     _goal = json['goal'];
     _height = json['height'];
+    _like = json['like'];
     _name = json['name'];
     _pass = json['pass'];
     _photoprofile = json['photoprofile'];
     _physical = json['physical'];
+    _post = json['post'];
     if (json['targetMuscle'] != null) {
       _targetMuscle = <TargetMuscle>[];
       json['targetMuscle'].forEach((v) {
@@ -115,16 +139,19 @@ class UserData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['age'] = this._age;
-    if (this._challangeData != null) {
-      data['challangeData'] = this._challangeData!.toJson();
+    if (this._challengeData != null) {
+      data['challengeData'] = this._challengeData!.toJson();
     }
+    data['dislike'] = this._dislike;
     data['gender'] = this._gender;
     data['goal'] = this._goal;
     data['height'] = this._height;
+    data['like'] = this._like;
     data['name'] = this._name;
     data['pass'] = this._pass;
     data['photoprofile'] = this._photoprofile;
     data['physical'] = this._physical;
+    data['post'] = this._post;
     if (this._targetMuscle != null) {
       data['targetMuscle'] =
           this._targetMuscle!.map((v) => v.toJson()).toList();
@@ -135,7 +162,7 @@ class UserData {
   }
 }
 
-class ChallangeData {
+class ChallengeData {
   int? _absBeginner;
   int? _absIntermediate;
   int? _bicepsBeginner;
@@ -151,7 +178,7 @@ class ChallangeData {
   int? _tricepsBeginner;
   int? _tricepsIntermediate;
 
-  ChallangeData(
+  ChallengeData(
       {int? absBeginner,
       int? absIntermediate,
       int? bicepsBeginner,
@@ -248,7 +275,7 @@ class ChallangeData {
   set tricepsIntermediate(int? tricepsIntermediate) =>
       _tricepsIntermediate = tricepsIntermediate;
 
-  ChallangeData.fromJson(Map<String, dynamic> json) {
+  ChallengeData.fromJson(Map<String, dynamic> json) {
     _absBeginner = json['AbsBeginner'];
     _absIntermediate = json['AbsIntermediate'];
     _bicepsBeginner = json['BicepsBeginner'];

@@ -46,7 +46,7 @@ class SettingPage extends GetView<SettingController> {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: ButtonCustomMain(
                   onPressed: () {
-                    Get.toNamed("/editprofilepage",);
+                    Get.toNamed("/editprofilepage");
                   },
                   title: "Edit Profile",
                   primary: Color.fromRGBO(255, 255, 255, 0.25),

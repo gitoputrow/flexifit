@@ -49,11 +49,11 @@ class CustomBottomNav extends StatelessWidget {
                 ),
               label: "a",
               backgroundColor: Colors.black),
-          // BottomNavigationBarItem(
-          //     activeIcon: Icon(IconlyBold.discovery,color: Colors.white,size: 40),
-          //     icon:Icon(IconlyLight.discovery,color: Colors.white,size: 39,),
-          //     label: "a",
-          //     backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              activeIcon: Icon(IconlyBold.discovery,color: Colors.white,size: 40),
+              icon:Icon(IconlyLight.discovery,color: Colors.white,size: 39,),
+              label: "a",
+              backgroundColor: Colors.black),
           BottomNavigationBarItem(
               activeIcon: Image.asset(
                   "asset/Image/profilepageIconActive.png",

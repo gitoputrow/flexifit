@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pain/controller/DashboardController.dart';
 
 import '../../../controller/SettingController.dart';
+import '../../../widget/BottomSheetPicture.dart';
 import '../../../widget/ButtonCustomMain.dart';
 import '../../../widget/TextFieldSettingCustom.dart';
 
@@ -23,7 +27,7 @@ class EditProfilePage extends GetView<SettingController> {
             child: Container(
               height: MediaQuery.of(context).size.height / 1.045,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Stack(
                     children: [
@@ -49,7 +53,70 @@ class EditProfilePage extends GetView<SettingController> {
                     ],
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 9.3,
+                    width: MediaQuery.of(context).size.width / 4.5,
+                    child: Stack(
+                      children: [
+                        CachedNetworkImage(
+                            imageUrl: controller.user.photoprofile!,
+                            errorWidget: (context, url, error) {
+                              return Container(
+                                color: Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    "image_not_found",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            progressIndicatorBuilder: (context, url, progress) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: Color.fromRGBO(170, 5, 27, 1),
+                                  value: progress.progress,
+                                ),
+                              );
+                            },
+                            imageBuilder: (context, imageProvider) {
+                              return Obx(() => CircleAvatar(
+                                radius: 53,
+                                backgroundImage: controller.imageSource == null
+                                    ? imageProvider
+                                    : Image.file(controller.imageSource!).image,
+                                backgroundColor: Colors.transparent,
+                              ));
+                            },
+                          ),
+                        Container(
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.only(top: 0, right: 1),
+                          child: InkWell(
+                            onTap: () {
+                              Get.bottomSheet(BottomSheetPicture(pickImageCamera: () async {
+                                await controller.PickImage(ImageSource.camera);
+                              }, pickImageGallery: () {
+                                controller.PickImage(ImageSource.gallery);
+                              }));
+                            },
+                            child: CircleAvatar(
+                              radius: 15,
+                              backgroundColor: Color.fromRGBO(170, 5, 27, 1),
+                              child: Icon(Icons.add),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 30),
@@ -181,6 +248,7 @@ class EditProfilePage extends GetView<SettingController> {
                                           onPressed: () {
                                             if (controller.buttonPermEP == true) {
                                               controller.discardEP();
+                                              controller.imageSource = null;
                                               controller.buttonPermissionEP();
                                             }
                                           },

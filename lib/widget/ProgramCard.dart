@@ -90,6 +90,7 @@ class ProgramCard extends StatelessWidget {
                   children: [
                     Text(
                       days,
+                      textScaleFactor: 1,
                       style:
                           TextStyle(fontSize: 35, fontFamily: 'RubikSemiBold', color: Colors.white),
                     ),
@@ -98,6 +99,7 @@ class ProgramCard extends StatelessWidget {
                     ),
                     Text(
                       WorkoutName,
+                      textScaleFactor: 1,
                       style:
                           TextStyle(fontSize: 18, fontFamily: 'RubikRegular', color: Colors.white),
                     ),

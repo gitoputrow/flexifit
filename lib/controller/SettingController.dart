@@ -1,12 +1,14 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../Page/IntroPage/splashscreen.dart';
 import '../StorageProvider.dart';
@@ -20,8 +22,6 @@ class SettingController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final storageRef = FirebaseStorage.instance.ref();
   DatabaseReference database = FirebaseDatabase().ref();
-
-  dynamic argumentData = Get.arguments;
 
   Rx<UserData> _user = UserData().obs;
   UserData get user => _user.value;
@@ -96,6 +96,14 @@ class SettingController extends GetxController {
   bool get buttonPermEPass => _buttonPermEPass.value;
   set buttonPermEPass(bool buttonPermEPass) => _buttonPermEPass.value = buttonPermEPass;
 
+  Rx<File?> _imageSource = (null as File?).obs;
+  File? get imageSource => _imageSource.value;
+  set imageSource(File? imageSource) => _imageSource.value = imageSource;
+
+  Rx<String> _imagepath = "".obs;
+  String get imagepath => _imagepath.value;
+  set imagepath(String imagepath) => _imagepath.value = imagepath;
+
   //Function to logout
   Future logout() async {
     Get.dialog(BasicLoader());
@@ -108,11 +116,14 @@ class SettingController extends GetxController {
     Get.dialog(BasicLoader());
 
     final userid = await StorageProvider.getUserToken();
-
-    for (int i = 0; i < userPhoto.length; i++) {
-      await storageRef.child(userid!).child("${userPhoto[i].id}").delete();
-    }
-    await database.child(userid!).remove();
+    print("$userid/");
+    await storageRef.child("$userid").listAll().then((value) {
+      value.items.forEach((element) async {
+        await storageRef.child(element.fullPath).delete();
+      });
+    });
+    await database.child("SosialMedia").child(userid!).remove();
+    await database.child("userDatabase").child(userid!).remove();
     await StorageProvider.removeUserToken();
     Get.offAll(SplashScreen());
   }
@@ -129,11 +140,11 @@ class SettingController extends GetxController {
           try {
             Get.dialog(BasicLoader());
             final id = await StorageProvider.getUserToken();
-            await database.child("$id").child("pass").set(cNewPass.text);
+            await database.child("userDatabase").child("$id").child("pass").set(cNewPass.text);
             discardEP();
             ToastMessageCustom.ToastMessage("Password Changed", Color.fromRGBO(10, 12, 13, 0.8));
             Future.delayed(Duration(seconds: 1));
-            Get.offAllNamed("/dashboard", arguments: 2);
+            Get.offAllNamed("/dashboard", arguments: 3);
           } catch (e) {}
         } else {
           ToastMessageCustom.ToastMessage("Password Doesn't Match", Color.fromRGBO(170, 5, 27, 1));
@@ -144,7 +155,7 @@ class SettingController extends GetxController {
 
   //Function to check if username exist
   Future checkUsername(String username) async {
-    final data = await database.get();
+    final data = await database.child("userDatabase").get();
     for (var children in data.children) {
       if (username == children.child("username").value.toString()) {
         usernameExist = true;
@@ -164,23 +175,54 @@ class SettingController extends GetxController {
         Get.back();
         ToastMessageCustom.ToastMessage("Username already taken", Color.fromRGBO(170, 5, 27, 1));
       } else {
+        await uploadImage();
         user.username = username.text.isNotEmpty ? username.text : user.username;
         user.name = name.text.isNotEmpty ? name.text : user.name;
         user.height = height.text.isNotEmpty ? height.text : user.height;
         user.weight = weight.text.isNotEmpty ? weight.text : user.weight;
         user.gender = selectedValue != user.gender ? selectedValue.toLowerCase() : user.gender;
-        await database.child("$id").child("gender").set(user.gender);
-        await database.child("$id").child("name").set(user.name);
-        await database.child("$id").child("weight").set(user.weight);
-        await database.child("$id").child("height").set(user.height);
-        await database.child("$id").child("username").set(user.username);
+        await database.child("userDatabase").child("$id").child("gender").set(user.gender);
+        await database.child("userDatabase").child("$id").child("name").set(user.name);
+        await database.child("userDatabase").child("$id").child("weight").set(user.weight);
+        await database.child("userDatabase").child("$id").child("height").set(user.height);
+        await database.child("userDatabase").child("$id").child("username").set(user.username);
         discardEP();
 
         ToastMessageCustom.ToastMessage("Profile Changed", Color.fromRGBO(10, 12, 13, 0.8));
         Timer(Duration(seconds: 3), () {
-          Get.offAllNamed("/dashboard", arguments: 2);
+          Get.offAllNamed("/dashboard", arguments: 3);
         });
       }
+    } catch (e) {}
+  }
+
+  //Function to pick a image
+  Future PickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+      File? imageTemporary = File(image.path);
+      imageSource = imageTemporary;
+      imagepath = imageTemporary.path;
+      buttonPermissionEP();
+      Get.back();
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
+  Future uploadImage() async {
+    try {
+      final userid = await StorageProvider.getUserToken();
+      Get.dialog(BasicLoader());
+      await storageRef.child(userid!).child("pp$userid").putFile(imageSource!).whenComplete(
+          () async => await storageRef
+                  .child(userid)
+                  .child("pp$userid")
+                  .getDownloadURL()
+                  .then((value) async {
+                await database.child("userDatabase").child(userid).child("photoprofile").set(value);
+              }));
     } catch (e) {}
   }
 
@@ -190,7 +232,8 @@ class SettingController extends GetxController {
         username.text.isNotEmpty ||
         name.text.isNotEmpty ||
         height.text.isNotEmpty ||
-        weight.text.isNotEmpty) {
+        weight.text.isNotEmpty ||
+        imageSource != null) {
       print("object");
       Get.dialog(CustomAlertDialog(
           onPressedno: () {
@@ -199,6 +242,7 @@ class SettingController extends GetxController {
           onPressedyes: () async {
             Get.back();
             discardEP();
+            imageSource = null;
             Get.back();
           },
           backgroundColor: Color.fromRGBO(10, 12, 13, 0.8),
@@ -245,7 +289,8 @@ class SettingController extends GetxController {
         name.text.isNotEmpty ||
         weight.text.isNotEmpty ||
         height.text.isNotEmpty ||
-        selectedValue.toLowerCase() != user.gender) {
+        selectedValue.toLowerCase() != user.gender ||
+        imageSource != null) {
       buttonPermEP = true;
     } else {
       buttonPermEP = false;

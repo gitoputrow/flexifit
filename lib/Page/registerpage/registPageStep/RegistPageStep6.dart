@@ -12,6 +12,7 @@ class RegistPageStep6 extends GetView<AuthentificationController> {
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: width * 0.075),
+        // height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("asset/BackgroundImage/bgIntroScreen6.png"),

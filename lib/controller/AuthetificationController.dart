@@ -201,7 +201,7 @@ class AuthentificationController extends GetxController {
   }
 
   Future checkUsernameandPass(String username, password) async {
-    final data = await database.get();
+    final data = await database.child("userDatabase").get();
     for (var children in data.children) {
       if (username == children.child("username").value.toString()) {
         usernameExist = true;
@@ -215,7 +215,7 @@ class AuthentificationController extends GetxController {
   }
 
   Future checkUsername(String username) async {
-    final data = await database.get();
+    final data = await database.child("userDatabase").get();
     for (var children in data.children) {
       if (username == children.child("username").value.toString()) {
         usernameExist = true;
@@ -308,6 +308,9 @@ class AuthentificationController extends GetxController {
       "height": height.value.text,
       "pass": password.value.text,
       "username": username.value.text,
+      "like" : 0,
+      "dislike" : 0,
+      "post" : 0,
       "photoprofile": urlPhoto
     };
     await checkUsername(username.value.text);
@@ -317,11 +320,11 @@ class AuthentificationController extends GetxController {
     } else {
       String id = database.push().key.toString();
       try {
-        await database.child("$id").set(dataUser).whenComplete(() => database
-            .child("$id")
+        await database.child("userDatabase").child("$id").set(dataUser).whenComplete(() => database
+            .child("userDatabase").child("$id")
             .child("targetMuscle")
             .set(muscledata)
-            .whenComplete(() => database.child("$id").child("challengeData").set({
+            .whenComplete(() => database.child("userDatabase").child("$id").child("challengeData").set({
                   "Full BodyBeginner": 0,
                   "AbsBeginner": 0,
                   "TricepsBeginner": 0,

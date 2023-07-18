@@ -31,6 +31,7 @@ class CustomRadioButtonCircle extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
+            textScaleFactor: 1,
             textAlign: TextAlign.left,
             style: TextStyle(
               fontFamily: 'RubikSemiBold',

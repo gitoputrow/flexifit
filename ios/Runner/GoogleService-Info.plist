@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1038745400119-pv0avukf0itnm2egb3r5snhb2ae3er3f.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1038745400119-pv0avukf0itnm2egb3r5snhb2ae3er3f</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAx9yrGprF-GcyMfUsfy4aeZTG6wATIzmw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1038745400119</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.pain</string>
+	<key>PROJECT_ID</key>
+	<string>paindatabase-9f08d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>paindatabase-9f08d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1038745400119:ios:b8036f7840aa6b4e6de0b2</string>
+	<key>DATABASE_URL</key>
+	<string>https://paindatabase-9f08d-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

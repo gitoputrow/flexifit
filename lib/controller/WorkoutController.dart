@@ -74,9 +74,9 @@ class WorkoutController extends GetxController {
         Get.dialog(BasicLoader());
         final userid = await StorageProvider.getUserToken();
         final data =
-            await database.child("$userid").child("challengeData").child(challengeSelected).get();
+            await database.child("userDatabase").child("$userid").child("challengeData").child(challengeSelected).get();
         int finished = int.parse(data.value.toString()) + 1;
-        await database
+        await database.child("userDatabase")
             .child("$userid")
             .child("challengeData")
             .child(challengeSelected)
@@ -99,7 +99,7 @@ class WorkoutController extends GetxController {
       final data = await database.child("WorkoutData").child(workoutName).get();
       print(data.key);
       workoutData = WorkoutData.fromJson(json.decode(json.encode(data.value)));
-      final finished = await database.child("$userid").child("challengeData").get();
+      final finished = await database.child("userDatabase").child("$userid").child("challengeData").get();
       if (workoutName.contains("Beginner") || workoutName.contains("Intermediate")) {
         int finished_ = int.parse(finished.child("$workoutName").value.toString());
         workoutData.reps = workoutData.reps! + finished_ * 2;

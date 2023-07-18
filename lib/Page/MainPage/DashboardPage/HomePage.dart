@@ -57,6 +57,7 @@ class HomePage extends GetView<DashboardController> {
                           Obx(
                             () => Text(
                               controller.dayTitle,
+                              textScaleFactor: 1,
                               style: TextStyle(
                                   color: Color.fromRGBO(255, 255, 255, 1),
                                   fontFamily: 'PoppinsRegular',

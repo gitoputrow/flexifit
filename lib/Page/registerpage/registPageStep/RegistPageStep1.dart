@@ -8,6 +8,7 @@ class RegistPageStep1 extends GetView<AuthentificationController> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Container(
+      // height: MediaQuery.of(context).size.height,
       padding: EdgeInsets.symmetric(horizontal: width * 0.075),
       decoration: BoxDecoration(
           image: DecorationImage(

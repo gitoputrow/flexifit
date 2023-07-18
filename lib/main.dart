@@ -1,11 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pain/Page/IntroPage/HomeScreen.dart';
-// import 'package:pain/Introduction/GenderSelected.dart';
-// import 'package:pain/Introduction/GoalSelected.dart';
-// import 'package:pain/Introduction/PhysicallySelected.dart';
-// import 'package:pain/ValidationPage.dart';
 import 'package:pain/appRoutes.dart';
 import 'package:pain/Page/IntroPage/splashscreen.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +15,9 @@ void main() async {
   Intl.defaultLocale = await findSystemLocale();
   await initializeDateFormatting();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

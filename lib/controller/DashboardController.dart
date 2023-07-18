@@ -26,15 +26,16 @@ import 'package:pain/model/UserData.dart';
 import 'package:pain/model/WorkoutData.dart';
 import 'package:pain/widget/BasicLoader.dart';
 import 'package:pain/widget/CustomAlertDialog.dart';
+import 'package:pain/widget/Loading.dart';
 import 'package:pain/widget/ToastMessageCustom.dart';
 
 import '../model/UserPhoto.dart';
+import '../model/UserPost.dart';
 
 class DashboardController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final storageRef = FirebaseStorage.instance.ref();
   DatabaseReference database = FirebaseDatabase().ref();
-  Rx<ScrollController> scrollController = ScrollController().obs;
 
   // ScrollController scrollController = ScrollController();
 
@@ -45,6 +46,10 @@ class DashboardController extends GetxController {
   Rx<int> _challangeIndex = 0.obs;
   int get challangeIndex => _challangeIndex.value;
   set challangeIndex(int challangeIndex) => _challangeIndex.value = challangeIndex;
+
+  Rx<int> _postLenght = 0.obs;
+  int get postLenght => _postLenght.value;
+  set postLenght(int postLenght) => _postLenght.value = postLenght;
 
   Rx<String> _urlPhoto = "".obs;
   String get urlPhoto => _urlPhoto.value;
@@ -58,9 +63,17 @@ class DashboardController extends GetxController {
   bool get loading => _loading.value;
   set loading(bool loading) => _loading.value = loading;
 
+  Rx<bool> _loadingPost = true.obs;
+  bool get loadingPost => _loadingPost.value;
+  set loadingPost(bool loadingPost) => _loadingPost.value = loadingPost;
+
   Rx<UserData> _user = UserData().obs;
   UserData get user => _user.value;
   set user(UserData user) => _user.value = user;
+
+  Rx<TextEditingController> _searchValue = TextEditingController().obs;
+  TextEditingController get searchValue => _searchValue.value;
+  set searchValue(TextEditingController searchValue) => _searchValue.value = searchValue;
 
   Rx<WorkoutData> _workoutData = WorkoutData().obs;
   WorkoutData get workoutData => _workoutData.value;
@@ -70,6 +83,10 @@ class DashboardController extends GetxController {
   List<ProgramWO> get programWO => _programWO.value;
   set programWO(List<ProgramWO> programWO) => _programWO.value = programWO;
 
+  RxList<UserPost> _userPostData = <UserPost>[].obs;
+  List<UserPost> get userPostData => _userPostData.value;
+  set userPostData(List<UserPost> userPostData) => _userPostData.value = userPostData;
+
   RxList<UserPhoto> _userPhoto = <UserPhoto>[].obs;
   List<UserPhoto> get userPhoto => _userPhoto.value;
   set userPhoto(List<UserPhoto> userPhoto) => _userPhoto.value = userPhoto;
@@ -78,9 +95,7 @@ class DashboardController extends GetxController {
   List<Challange> get challangeData => _challangeData.value;
   set challangeData(List<Challange> challangeData) => _challangeData.value = challangeData;
 
-  List<Widget> pages = [HomePage(), ChallangePage(), 
-  // SosmedPage(),
-  ProfilePage()];
+  List<Widget> pages = [HomePage(), ChallangePage(), SosmedPage(), ProfilePage()];
 
   RxList<String> _muscle = <String>[].obs;
   List<String> get muscle => _muscle.value;
@@ -111,6 +126,15 @@ class DashboardController extends GetxController {
 
   String userid = "";
 
+  final List<String> items = [
+    "My Program",
+    "My Profile",
+  ];
+
+  Rx<String> _selectedValue = "My Program".obs;
+  String get selectedValue => _selectedValue.value;
+  set selectedValue(String selectedValue) => _selectedValue.value = selectedValue;
+
   Rx<int> _userPhotoLength = 0.obs;
   int get userPhotoLength => _userPhotoLength.value;
   set userPhotoLength(int userPhotoLength) => _userPhotoLength.value = userPhotoLength;
@@ -125,6 +149,7 @@ class DashboardController extends GetxController {
 
   Rx<String> test = "Save".obs;
   Rx<String> testw = "Discard".obs;
+  Rx<String> testa = "Discard".obs;
 
   List<String> sortedDays = [
     "Monday",
@@ -135,7 +160,6 @@ class DashboardController extends GetxController {
     "Saturday",
     "Sunday"
   ];
-
 
   //Function to changing page
   void changePage(int index) {
@@ -162,8 +186,12 @@ class DashboardController extends GetxController {
             user.physical = physicTemp;
             user.goal = goalTemp;
 
-            await database.child("$userid").set(user.toJson());
-            await database.child("$userid").child("targetMuscle").set(muscledata);
+            await database.child("userDatabase").child("$userid").set(user.toJson());
+            await database
+                .child("userDatabase")
+                .child("$userid")
+                .child("targetMuscle")
+                .set(muscledata);
             await getUserData();
             await getProgramData();
             Get.back();
@@ -180,7 +208,7 @@ class DashboardController extends GetxController {
   //Function to get user data
   Future getUserData() async {
     try {
-      final data = await database.child("$userid").get();
+      final data = await database.child("userDatabase").child("$userid").get();
       user = UserData.fromJson(json.decode(json.encode(data.value)));
       goalTemp = user.goal!;
       physicTemp = user.physical!;
@@ -193,7 +221,7 @@ class DashboardController extends GetxController {
       muscle.sort();
       muscleTemp.sort();
     } catch (e) {
-      print("$e a");
+      Get.offAll(HomeScreen());
     }
   }
 
@@ -205,14 +233,16 @@ class DashboardController extends GetxController {
       final data = await database.child("WorkoutData").child(workoutName).get();
       print(data.key);
       workoutData = WorkoutData.fromJson(json.decode(json.encode(data.value)));
-      final finished = await database.child("$userid").child("challengeData").get();
+      final finished =
+          await database.child("userDatabase").child("$userid").child("challengeData").get();
       if (workoutName.contains("Beginner") || workoutName.contains("Intermediate")) {
         int finished_ = int.parse(finished.child("$workoutName").value.toString());
         workoutData.reps = workoutData.reps! + finished_ * 2;
       }
       challengeSelected = workoutName;
       Get.back();
-      Get.toNamed("/workoutlist",arguments: [finishedChallange,workoutData,challangeIndex,challangeData]);
+      Get.toNamed("/workoutlist",
+          arguments: [finishedChallange, workoutData, challangeIndex, challangeData]);
     } catch (e) {
       print(e);
     }
@@ -264,9 +294,10 @@ class DashboardController extends GetxController {
     finishedChallange.clear();
     try {
       Get.dialog(BasicLoader());
-      
+
       for (int index = 0; index < challangeData[challangeIndex].level!.length; index++) {
         final data = await database
+            .child("userDatabase")
             .child("$userid")
             .child("challengeData")
             .child(
@@ -279,6 +310,109 @@ class DashboardController extends GetxController {
     } catch (e) {
       Get.back();
     }
+  }
+
+  Future getUserPostData() async {
+    loadingPost = true;
+    userPostData.clear();
+    try {
+      final dataChild = await database.get();
+      if (dataChild.child("SosialMedia").exists) {
+        final data = await database.child("SosialMedia").get();
+        data.children.forEach((child) {
+          child.children.forEach((element) {
+            userPostData.add(UserPost.fromJson(json.decode(json.encode(element.value))));
+          });
+        });
+        for (var element in userPostData) {
+          final data = await database
+              .child("userDatabase")
+              .child(element.id!.substring(element.id!.indexOf("|") + 1))
+              .get();
+          element.profilepicture = data.child("photoprofile").value.toString();
+          element.username = data.child("username").value.toString();
+          final dataPost = await database
+              .child("SosialMedia")
+              .child(element.id!.substring(element.id!.indexOf("|") + 1))
+              .child(element.id!)
+              .get();
+          if (dataPost.child("liked").exists) {
+            element.liked = dataPost.child("liked").child(userid).exists;
+            element.like = dataPost.child("liked").children.length;
+            // test.value = "adad";
+          }
+          if (dataPost.child("commented").exists) {
+            element.comment = dataPost.child("commented").children.length;
+          }
+          print("objecdadat");
+        }
+        userPostData.sort((b, a) {
+          return a.date!.compareTo(b.date!);
+        });
+        postLenght = userPostData.length;
+        print("object");
+      }
+      loadingPost = false;
+      print("objectada");
+    } catch (e) {
+      loadingPost = false;
+    }
+  }
+
+  Future like(String userId, String idPost) async {
+    final dataPost = await database.child("SosialMedia").child(userId).child(idPost).get();
+    if (dataPost.child("liked").child(userid).exists) {
+      await database
+          .child("SosialMedia")
+          .child(userId)
+          .child(idPost)
+          .child("liked")
+          .child(userid)
+          .remove()
+          .whenComplete(() {
+        userPostData[userPostData.indexWhere((element) => element.id == idPost)].liked = false;
+        userPostData[userPostData.indexWhere((element) => element.id == idPost)].like =
+            dataPost.child("liked").children.length - 1;
+        testa.value = "b${userPostData[userPostData.indexWhere((element) => element.id == idPost)].id}";
+      });
+    } else {
+      await database
+          .child("SosialMedia")
+          .child(userId)
+          .child(idPost)
+          .child("liked")
+          .child(userid)
+          .set("liked")
+          .whenComplete(() {
+        userPostData[userPostData.indexWhere((element) => element.id == idPost)].liked = true;
+        userPostData[userPostData.indexWhere((element) => element.id == idPost)].like =
+            dataPost.child("liked").children.length + 1;
+        print(dataPost.child("liked").children.length);
+        testa.value = "a${userPostData[userPostData.indexWhere((element) => element.id == idPost)].id}";
+      });
+
+      print(userPostData[userPostData.indexWhere((element) => element.id == idPost)].like);
+    }
+  }
+
+  Future deletePost(String id) async {
+    Get.dialog(CustomAlertDialog(
+        onPressedno: () {
+          Get.back();
+        },
+        onPressedyes: () async {
+          Get.back();
+          Get.dialog(BasicLoader());
+          await storageRef.child("$userid").child(id).delete().whenComplete(
+              () async => await database.child("SosialMedia").child(userid).child(id!).remove());
+          await getUserPostData();
+          Get.back();
+        },
+        backgroundColor: Color.fromRGBO(69, 63, 63, 0.773),
+        title: "Do you want to delete this post?",
+        fontColor: Color.fromARGB(204, 255, 255, 255),
+        fontSize: 20,
+        iconColor: Colors.white));
   }
 
   //Function to split workout for user program
@@ -408,43 +542,6 @@ class DashboardController extends GetxController {
         .then((value) => programWO[i].picture = value.toString());
   }
 
-  //Function to get user photo
-  Future getUserPhoto() async {
-    userPhotoLength = 0;
-    try {
-      final data = await database.child(userid).child("userPhoto").get();
-      if (data.exists) {
-        userPhoto.clear();
-        data.children.forEach((element) {
-          userPhoto.add(UserPhoto.fromJson(json.decode(json.encode(element.value))));
-        });
-        userPhoto.sort((a, b) => a.date!.compareTo(b.date!));
-        userPhotoLength = userPhoto.length;
-      } else {}
-    } catch (e) {
-      print("$e aa");
-    }
-  }
-
-  //Function to logout
-  Future logout() async {
-    Get.dialog(BasicLoader());
-    await StorageProvider.removeUserToken();
-    Get.offAll(SplashScreen());
-  }
-
-  //Function to delete account
-  Future deleteAccount() async {
-    Get.dialog(BasicLoader());
-    print("$userid/");
-    for (int i = 0; i < userPhoto.length; i++) {
-      await storageRef.child(userid).child("${userPhoto[i].id}").delete();
-    }
-    await database.child(userid).remove();
-    await StorageProvider.removeUserToken();
-    Get.offAll(SplashScreen());
-  }
-
   void changeData(String section, String value) {
     if (section == "goal") {
       goalTemp = value;
@@ -468,49 +565,48 @@ class DashboardController extends GetxController {
   //Function to pick a image
   Future PickImage(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: source);
+      final image = await ImagePicker().pickImage(source: source, imageQuality: 50);
       if (image == null) return;
       File? imageTemporary = File(image.path);
-      print("$imageTemporary");
       imageSource = imageTemporary;
       imagepath = imageTemporary.path;
       Get.back();
-      Timer.periodic(Duration(milliseconds: 500), (_) {
-        scrollController.value.animateTo(scrollController.value.position.maxScrollExtent,
-            duration: Duration(milliseconds: 200), curve: Curves.easeOut);
-        _.cancel();
-      });
+      Get.toNamed("/addpostpage", arguments: [
+        userid,
+        {"img_file": imageSource}
+      ]);
     } on PlatformException catch (e) {
       print(e);
     }
   }
 
-  Future uploadImage() async {
-    try {
+  Future search(String username) async {
+    if (username == user.username) {
+      currentIndex = 3;
+      selectedValue = "My Profile";
+      searchValue.text = "";
+    } else {
       Get.dialog(BasicLoader());
-      Map imageFolder = {};
-      final idPic = "pic${DateFormat('dd-MM-y_H:mm:ss').format(DateTime.now())}";
-      print(idPic);
-      await storageRef.child(userid).child(idPic).putFile(imageSource!).whenComplete(() async =>
-          await storageRef.child(userid).child(idPic).getDownloadURL().then((value) async {
-            imageFolder['days'] = DateFormat('EEEE').format(DateTime.now()).toString();
-            imageFolder['date'] = DateFormat('d MMMM yyyy').format(DateTime.now()).toString();
-            imageFolder['url'] = value;
-            imageFolder['id'] = idPic;
-            await database
-                .child(userid)
-                .child("userPhoto")
-                .child(idPic)
-                .set(imageFolder)
-                .whenComplete(() async {
-              imageSource = null;
-              await getUserPhoto();
-              update();
-              print(userPhoto.length);
-              Get.back();
-            });
-          }));
-    } catch (e) {}
+      final data = await database.child("userDatabase").get();
+      bool found = false;
+      for (var child in data.children) {
+        if (child.child("username").value.toString() == username) {
+          found = true;
+          Get.back();
+          searchValue.text = "";
+          Get.toNamed("/profilepostpage", arguments: [
+            userid,
+            {"user_post": child.key},
+            "userpostdetail"
+          ])!
+              .then((value) async => await getUserPostData());
+        }
+      }
+      if (found == false) {
+        Get.back();
+        ToastMessageCustom.ToastMessage("Username Not Found", Color.fromRGBO(173, 5, 24, 1));
+      }
+    }
   }
 
   @override
@@ -522,9 +618,9 @@ class DashboardController extends GetxController {
     if (user != null) {
       userid = user;
       await getUserData();
+      await getUserPostData();
       await getChallengeData();
       await getProgramData();
-      await getUserPhoto();
     }
     loading = false;
     super.onInit();
