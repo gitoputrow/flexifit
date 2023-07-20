@@ -45,74 +45,33 @@ class ChallangePage extends GetView<DashboardController> {
               SizedBox(
                 height: 30,
               ),
-              for (var i = 0; i < controller.challangeData.length; i++)
-                Obx(() => Column(
-                      children: [
-                        GestureDetector(
+              ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => Obx(
+                        () => GestureDetector(
                           onTap: () async {
-                            controller.challangeIndex = i;
+                            controller.challangeIndex = index;
                             await controller.getFinishedData();
-                            Get.toNamed("/challangelevel",arguments: [controller.finishedChallange,controller.workoutData,controller.challangeIndex,controller.challangeData]);
+                            Get.toNamed("/challangelevel", arguments: [
+                              controller.finishedChallange,
+                              controller.workoutData,
+                              controller.challangeIndex,
+                              controller.challangeData
+                            ]);
                           },
                           child: ChallangeCard(
                               height: 125,
-                              title: controller.challangeData[i].title!,
-                              picture: controller.challangeData[i].picture!,
+                              title: controller.challangeData[index].title!,
+                              picture: controller.challangeData[index].picture!,
                               width: MediaQuery.of(context).size.width),
                         ),
-                        SizedBox(
-                          height: 35,
-                        )
-                      ],
-                    )),
-
-              // SizedBox(
-              //   height: 125,
-              //   width: MediaQuery.of(context).size.width,
-              //   child: ClipRRect(
-              //     borderRadius: BorderRadius.circular(20),
-              //     child: Stack(
-              //       children: [
-              //         Image.asset(
-              //           "asset/Image/Challange/Abschallange.png",
-              //           fit: BoxFit.cover,
-              //           width: MediaQuery.of(context).size.width,
-              //           height: 125,
-              //         ),
-              //         Container(
-              //           padding: EdgeInsets.only(bottom: 28, left: 31),
-              //           alignment: Alignment.bottomLeft,
-              //           child: Text(
-              //             "Abs Workouts",
-              //             style: TextStyle(
-              //                 color: Colors.white, fontFamily: 'RubikReguler', fontSize: 22.5),
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // )
-              // Obx(
-              //   () => SizedBox(
-              //     height: MediaQuery.of(context).size.height,
-              //     width: MediaQuery.of(context).size.width,
-              //     child: ListView.separated(
-              //         separatorBuilder: (context, index) {
-              //           return SizedBox(
-              //             height: 30,
-              //           );
-              //         },
-              //         itemBuilder: (context, index) {
-              //           return ChallangeCard(
-              //               height: 125,
-              //               title: controller.challangeData[index].title!,
-              //               picture: controller.challangeData[index].picture!,
-              //               width: MediaQuery.of(context).size.width);
-              //         },
-              //         scrollDirection: Axis.vertical,
-              //         itemCount: controller.challangeData.length),
-              //   ),
-              // )
+                      ),
+                  separatorBuilder: (context, index) => SizedBox(
+                        height: 35,
+                      ),
+                  itemCount: controller.challangeData.length)
             ]),
           ),
         ),
