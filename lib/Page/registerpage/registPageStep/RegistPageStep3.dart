@@ -12,8 +12,7 @@ class RegistPageStep3 extends GetView<AuthentificationController> {
       padding: EdgeInsets.symmetric(horizontal: width * 0.075),
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("asset/BackgroundImage/bgIntroScreen3.png"),
-              fit: BoxFit.cover)),
+              image: AssetImage("asset/BackgroundImage/bgIntroScreen3.png"), fit: BoxFit.cover)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -38,54 +37,58 @@ class RegistPageStep3 extends GetView<AuthentificationController> {
           ),
           Obx(
             () => CustomRadioButton(
-                onPressed: () {
-                  controller.DropButFunction(3, "build");
-                },
-                title: "Build Muscle",
-                fontSize: 21,
-                subText: Text(
-                  'Build mass & Strength',
-                  textScaleFactor: 1,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontFamily: 'RubikRegular',
-                      fontSize: 16,
-                      color: controller.goalRes == "build"
-                          ? Color.fromRGBO(10, 12, 13, 0.8)
-                          : Color.fromRGBO(255, 255, 255, 0.8)),
-                ),
-                condition: controller.goalRes != "build",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+              onPressed: () {
+                controller.DropButFunction(3, "build");
+              },
+              title: "Build Muscle",
+              fontSize: 21,
+              subText: Text(
+                'Build mass & Strength',
+                textScaleFactor: 1,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    fontFamily: 'RubikRegular',
+                    fontSize: 16,
+                    color: controller.goalRes == "build"
+                        ? Color.fromRGBO(10, 12, 13, 0.8)
+                        : Color.fromRGBO(255, 255, 255, 0.8)),
+              ),
+              colorText: controller.goalRes != "build"
+                  ? Color.fromRGBO(255, 255, 255, 0.8)
+                  : Color.fromRGBO(10, 12, 13, 0.8),
+              colorButton: controller.goalRes != "build"
+                  ? Color.fromRGBO(10, 12, 13, 0.8)
+                  : Color.fromRGBO(255, 255, 255, 0.8),
+            ),
           ),
           SizedBox(
             height: 26,
           ),
           Obx(
             () => CustomRadioButton(
-                onPressed: () {
-                  controller.DropButFunction(3, "burn");
-                },
-                title: "Burn Fat",
-                fontSize: 21,
-                subText: Text(
-                  'Burn extra fat & Feel energized',
-                  textScaleFactor: 1,
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                      fontFamily: 'RubikRegular',
-                      fontSize: 16,
-                      color: controller.goalRes == "burn"
-                          ? Color.fromRGBO(10, 12, 13, 0.8)
-                          : Color.fromRGBO(255, 255, 255, 0.8)),
-                ),
-                condition: controller.goalRes != "burn",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+              onPressed: () {
+                controller.DropButFunction(3, "burn");
+              },
+              title: "Burn Fat",
+              fontSize: 21,
+              subText: Text(
+                'Burn extra fat & Feel energized',
+                textScaleFactor: 1,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    fontFamily: 'RubikRegular',
+                    fontSize: 16,
+                    color: controller.goalRes == "burn"
+                        ? Color.fromRGBO(10, 12, 13, 0.8)
+                        : Color.fromRGBO(255, 255, 255, 0.8)),
+              ),
+              colorText: controller.goalRes != "burn"
+                  ? Color.fromRGBO(255, 255, 255, 0.8)
+                  : Color.fromRGBO(10, 12, 13, 0.8),
+              colorButton: controller.goalRes != "burn"
+                  ? Color.fromRGBO(10, 12, 13, 0.8)
+                  : Color.fromRGBO(255, 255, 255, 0.8),
+            ),
           ),
           SizedBox(
             height: 14,

@@ -13,8 +13,7 @@ class RegistPageStep4 extends GetView<AuthentificationController> {
         padding: EdgeInsets.symmetric(horizontal: width * 0.075),
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("asset/BackgroundImage/bgIntroScreen4.png"),
-                fit: BoxFit.cover)),
+                image: AssetImage("asset/BackgroundImage/bgIntroScreen4.png"), fit: BoxFit.cover)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -39,85 +38,95 @@ class RegistPageStep4 extends GetView<AuthentificationController> {
             ),
             Obx(
               () => CustomRadioButton(
-                  onPressed: () {
-                    controller.DropButFunction(4, "1");
-                  },
-                  title: "Being healthier",
-                  fontSize: 22,
-                  subText: null,
-                  condition: !controller.motivRes.contains("1"),
-                   unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                onPressed: () {
+                  controller.DropButFunction(4, "1");
+                },
+                title: "Being healthier",
+                fontSize: 22,
+                subText: null,
+                colorText: !controller.motivRes.contains("1")
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: !controller.motivRes.contains("1")
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),
+              ),
             ),
             SizedBox(
               height: 26,
             ),
             Obx(
               () => CustomRadioButton(
-                  onPressed: () {
-                    controller.DropButFunction(4, "2");
-                  },
-                  fontSize: 22,
-                  subText: null,
-                  title: "Looking better",
-                  condition: !controller.motivRes.contains("2"),
-                   unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                onPressed: () {
+                  controller.DropButFunction(4, "2");
+                },
+                fontSize: 22,
+                subText: null,
+                title: "Looking better",
+                colorText: !controller.motivRes.contains("2")
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: !controller.motivRes.contains("2")
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),
+              ),
             ),
             SizedBox(
               height: 26,
             ),
             Obx(
               () => CustomRadioButton(
-                  onPressed: () {
-                    controller.DropButFunction(4, "3");
-                  },
-                  fontSize: 22,
-                  subText: null,
-                  title: "For strength & endurance",
-                  condition: !controller.motivRes.contains("3"),
-                   unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                onPressed: () {
+                  controller.DropButFunction(4, "3");
+                },
+                fontSize: 22,
+                subText: null,
+                title: "For strength & endurance",
+                colorText: !controller.motivRes.contains("3")
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: !controller.motivRes.contains("3")
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),
+              ),
             ),
             SizedBox(
               height: 26,
             ),
             Obx(
               () => CustomRadioButton(
-                  onPressed: () {
-                    controller.DropButFunction(4, "4");
-                  },
-                  fontSize: 22,
-                  subText: null,
-                  title: "Reducing stress or tension",
-                  condition: !controller.motivRes.contains("4"),
-                   unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                onPressed: () {
+                  controller.DropButFunction(4, "4");
+                },
+                fontSize: 22,
+                subText: null,
+                title: "Reducing stress or tension",
+                colorText: !controller.motivRes.contains("4")
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: !controller.motivRes.contains("4")
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),
+              ),
             ),
             SizedBox(
               height: 26,
             ),
             Obx(
               () => CustomRadioButton(
-                  onPressed: () {
-                    controller.DropButFunction(4, "5");
-                  },
-                  fontSize: 22,
-                  subText: null,
-                  title: "Boosting confidence",
-                  condition: !controller.motivRes.contains("5"),
-                   unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                onPressed: () {
+                  controller.DropButFunction(4, "5");
+                },
+                fontSize: 22,
+                subText: null,
+                title: "Boosting confidence",
+                colorText: !controller.motivRes.contains("5")
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: !controller.motivRes.contains("5")
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),
+              ),
             ),
           ],
         ),

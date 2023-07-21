@@ -2,18 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:pain/model/Challange.dart';
 
 class ChallangeCard extends StatelessWidget {
   double height;
   double width;
-  String title;
-  String picture;
+  Challange challangeData;
 
   ChallangeCard(
       {Key? key,
       required this.height,
-      required this.title,
-      required this.picture,
+      required this.challangeData,
       required this.width})
       : super(key: key);
 
@@ -27,7 +26,7 @@ class ChallangeCard extends StatelessWidget {
         child: Stack(
           children: [
             CachedNetworkImage(
-              imageUrl: picture,
+              imageUrl: challangeData.picture!,
               height: height,
               width: width,
               fit: BoxFit.cover,
@@ -58,7 +57,7 @@ class ChallangeCard extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 28, left: 31),
               alignment: Alignment.bottomLeft,
               child: Text(
-                "$title Workout",
+                "${challangeData.title} Workout",
                 style: TextStyle(color: Colors.white, fontFamily: 'RubikReguler', fontSize: 22.5),
               ),
             ),

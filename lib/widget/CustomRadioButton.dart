@@ -3,26 +3,19 @@ import 'package:flutter/material.dart';
 class CustomRadioButton extends StatelessWidget {
   void Function()? onPressed;
   String title;
-  bool condition;
   double fontSize;
   Text? subText;
-  Color selectedText;
-  Color unSelectedText;
-  Color selectedBut;
-  Color unSelectedBut;
+  Color colorButton;
+  Color colorText;
 
-  CustomRadioButton({
-    Key? key,
-    required this.onPressed,
-    required this.title,
-    required this.condition,
-    required this.fontSize,
-    required this.subText,
-    required this.selectedBut,
-    required this.selectedText,
-    required this.unSelectedBut,
-    required this.unSelectedText
-  });
+  CustomRadioButton(
+      {Key? key,
+      required this.onPressed,
+      required this.title,
+      required this.fontSize,
+      required this.subText,
+      required this.colorText,
+      required this.colorButton});
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +34,17 @@ class CustomRadioButton extends StatelessWidget {
                 style: TextStyle(
                     fontFamily: 'RubikSemiBold',
                     fontSize: fontSize,
-                    color: condition
-                        ? unSelectedText
-                        : selectedText),
+                    color: colorText),
               ),
               SizedBox(
                 height: subText == null ? 0 : 6,
               ),
-              subText == null ? Container() : subText!
+              subText == null ? SizedBox() : subText!
             ],
           )),
       style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          primary: condition ? unSelectedBut : selectedBut,
+          primary: colorButton,
           padding: EdgeInsets.symmetric(vertical: 24)),
     );
   }

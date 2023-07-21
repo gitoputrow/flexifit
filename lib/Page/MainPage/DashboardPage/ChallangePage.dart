@@ -63,8 +63,7 @@ class ChallangePage extends GetView<DashboardController> {
                           },
                           child: ChallangeCard(
                               height: 125,
-                              title: controller.challangeData[index].title!,
-                              picture: controller.challangeData[index].picture!,
+                              challangeData: controller.challangeData[index],
                               width: MediaQuery.of(context).size.width),
                         ),
                       ),

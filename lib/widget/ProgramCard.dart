@@ -4,25 +4,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pain/model/ProgramWO.dart';
 
 class ProgramCard extends StatelessWidget {
   double width;
   double height;
-  String? imageUrl;
-  File? imageSource;
-  String days;
-  String WorkoutName;
-  void Function()? cameraTap;
+  ProgramWO programWO;
 
   ProgramCard({
     Key? key,
     required this.width,
     required this.height,
-    required this.imageUrl,
-    required this.days,
-    this.cameraTap,
-    this.imageSource,
-    required this.WorkoutName,
+    required this.programWO,
   }) : super(key: key);
 
   @override
@@ -34,28 +27,8 @@ class ProgramCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           child: Stack(
             children: [
-              imageUrl == null
-                  ? Container(
-                      height: height,
-                      width: width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                                        color: imageSource == null ? Color.fromRGBO(255, 255, 255, 0.125) : null,
-                                        image: imageSource == null ? null : DecorationImage(
-                                            image: FileImage(imageSource!),
-                                            fit: BoxFit.cover
-                                        )
-                                    ),
-                      child: imageSource ==null ? IconButton(
-                        icon: Image.asset(
-                          "asset/Image/cameraImage.png",
-                          width: width / 6,
-                        ),
-                        onPressed: cameraTap,
-                      ) : Text(""),
-                    )
-                  : CachedNetworkImage(
-                      imageUrl:  imageUrl!,
+              CachedNetworkImage(
+                      imageUrl: programWO.picture!,
                       height: height,
                       width: width,
                       fit: BoxFit.cover,
@@ -77,7 +50,7 @@ class ProgramCard extends StatelessWidget {
                         return Center(
                           child: CircularProgressIndicator(
                             color: Color.fromRGBO(170, 5, 27, 1),
-                            value:progress.progress,
+                            value: progress.progress,
                           ),
                         );
                       },
@@ -89,7 +62,7 @@ class ProgramCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      days,
+                      programWO.day!,
                       textScaleFactor: 1,
                       style:
                           TextStyle(fontSize: 35, fontFamily: 'RubikSemiBold', color: Colors.white),
@@ -98,7 +71,7 @@ class ProgramCard extends StatelessWidget {
                       height: 13,
                     ),
                     Text(
-                      WorkoutName,
+                      programWO.title!,
                       textScaleFactor: 1,
                       style:
                           TextStyle(fontSize: 18, fontFamily: 'RubikRegular', color: Colors.white),

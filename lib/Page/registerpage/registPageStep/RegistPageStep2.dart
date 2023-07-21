@@ -54,11 +54,12 @@ class RegistPageStep2 extends GetView<AuthentificationController> {
                           ? Color.fromRGBO(10, 12, 13, 0.8)
                           : Color.fromRGBO(255, 255, 255, 0.8)),
                 ),
-                condition: controller.physicalRes != "new",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                colorText: controller.physicalRes != "new"
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: controller.physicalRes != "new"
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),),
           ),
           SizedBox(
             height: 26,
@@ -81,11 +82,12 @@ class RegistPageStep2 extends GetView<AuthentificationController> {
                           ? Color.fromRGBO(10, 12, 13, 0.8)
                           : Color.fromRGBO(255, 255, 255, 0.8)),
                 ),
-                condition: controller.physicalRes != "newb",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                colorText: controller.physicalRes != "newb"
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: controller.physicalRes != "newb"
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),),
           ),
           SizedBox(
             height: 26,
@@ -108,11 +110,12 @@ class RegistPageStep2 extends GetView<AuthentificationController> {
                           ? Color.fromRGBO(10, 12, 13, 0.8)
                           : Color.fromRGBO(255, 255, 255, 0.8)),
                 ),
-                condition: controller.physicalRes != "pro",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                colorText: controller.physicalRes != "pro"
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: controller.physicalRes != "pro"
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),),
           ),
           SizedBox(
             height: 26,
@@ -135,11 +138,12 @@ class RegistPageStep2 extends GetView<AuthentificationController> {
                           ? Color.fromRGBO(10, 12, 13, 0.8)
                           : Color.fromRGBO(255, 255, 255, 0.8)),
                 ),
-                condition: controller.physicalRes != "master",
-                 unSelectedText: Color.fromRGBO(255, 255, 255, 0.8),
-                selectedText: Color.fromRGBO(10, 12, 13, 0.8),
-                unSelectedBut: Color.fromRGBO(10, 12, 13, 0.8),
-                selectedBut: Color.fromRGBO(255, 255, 255, 0.8),),
+                colorText: controller.physicalRes != "master"
+                    ? Color.fromRGBO(255, 255, 255, 0.8)
+                    : Color.fromRGBO(10, 12, 13, 0.8),
+                colorButton: controller.physicalRes != "master"
+                    ? Color.fromRGBO(10, 12, 13, 0.8)
+                    : Color.fromRGBO(255, 255, 255, 0.8),),
           ),
           SizedBox(
             height: 26,

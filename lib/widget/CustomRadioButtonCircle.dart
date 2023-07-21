@@ -4,23 +4,17 @@ import 'package:flutter/material.dart';
 
 class CustomRadioButtonCircle extends StatelessWidget {
   String title;
-  Color selectedText;
-  Color unSelectedText;
-  Color selectedBut;
-  Color unSelectedBut;
+  Color colorText;
+  Color colorButton;
   void Function()? onPressed;
-  bool condition;
 
-   CustomRadioButtonCircle({
+  CustomRadioButtonCircle({
     Key? key,
     required this.onPressed,
     required this.title,
-    required this.condition,
-    required this.selectedBut,
-    required this.selectedText,
-    required this.unSelectedBut,
-    required this.unSelectedText
-  }); 
+    required this.colorButton,
+    required this.colorText
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +30,13 @@ class CustomRadioButtonCircle extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'RubikSemiBold',
               fontSize: 20,
-              color: condition ? unSelectedText : selectedText,
+              color: colorText,
             ),
           ),
         ),
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            primary: condition ? unSelectedBut : selectedBut,
+            primary: colorButton,
             padding: EdgeInsets.symmetric(vertical: 21)),
       ),
     );

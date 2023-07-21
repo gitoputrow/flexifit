@@ -75,35 +75,33 @@ class HomePage extends GetView<DashboardController> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 1.47,
-              width: MediaQuery.of(context).size.width,
-              child: Obx(
-                () => PageView(
-                  physics: BouncingScrollPhysics(),
-                pageSnapping: true,
-                padEnds: true,
-                controller: PageController(viewportFraction: 0.87),
-                children: [
-                  for (var i = 0; i < controller.programWO.length; i++)
-                    GestureDetector(
+                height: MediaQuery.of(context).size.height / 1.47,
+                width: MediaQuery.of(context).size.width,
+                child: Obx(
+                  () => PageView(
+                    physics: BouncingScrollPhysics(),
+                    pageSnapping: true,
+                    padEnds: true,
+                    controller: PageController(viewportFraction: 0.87),
+                    children: [
+                      for (var i = 0; i < controller.programWO.length; i++)
+                        GestureDetector(
                           onTap: () async {
-                            await controller.getWorkoutList(
-                                "${controller.programWO[i].workoutName}");
+                            await controller
+                                .getWorkoutList("${controller.programWO[i].workoutName}");
                           },
                           child: Container(
                             margin: EdgeInsets.only(right: 25),
                             child: ProgramCard(
-                                width: MediaQuery.of(context).size.width,
-                                height: MediaQuery.of(context).size.height / 1.47,
-                                imageUrl: controller.programWO[i].picture!,
-                                days: controller.programWO[i].day!,
-                                WorkoutName: controller.programWO[i].title!),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 1.47,
+                              programWO: controller.programWO[i],
+                            ),
                           ),
                         )
-                ],
-              ),
-              )
-            ),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),
