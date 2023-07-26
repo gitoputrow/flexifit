@@ -43,9 +43,9 @@ class CustomRadioButton extends StatelessWidget {
             ],
           )),
       style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height < 800 ? 16 : 20)),
           primary: colorButton,
-          padding: EdgeInsets.symmetric(vertical: 24)),
+          padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height < 800 ? 18 : 24)),
     );
   }
 }

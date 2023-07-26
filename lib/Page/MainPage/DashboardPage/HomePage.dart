@@ -69,13 +69,13 @@ class HomePage extends GetView<DashboardController> {
                     ],
                   ),
                   SizedBox(
-                    height: 40,
+                    height: MediaQuery.of(context).size.height / 25,
                   ),
                 ],
               ),
             ),
             SizedBox(
-                height: MediaQuery.of(context).size.height / 1.47,
+                height: MediaQuery.of(context).size.height < 800 ? MediaQuery.of(context).size.height / 1.55 : MediaQuery.of(context).size.height / 1.47,
                 width: MediaQuery.of(context).size.width,
                 child: Obx(
                   () => PageView(
@@ -94,7 +94,7 @@ class HomePage extends GetView<DashboardController> {
                             margin: EdgeInsets.only(right: 25),
                             child: ProgramCard(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 1.47,
+                              height: MediaQuery.of(context).size.height < 800 ? MediaQuery.of(context).size.height / 1.55 : MediaQuery.of(context).size.height / 1.47,
                               programWO: controller.programWO[i],
                             ),
                           ),

@@ -52,9 +52,9 @@ class RegistPageStep7 extends GetView<AuthentificationController> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+             SizedBox(
+            height: MediaQuery.of(context).size.height < 800 ? 40 : 50,
+          ),
             TextFieldCustom(
               onChanged: (text) {
                 controller.continueRegistFunc();

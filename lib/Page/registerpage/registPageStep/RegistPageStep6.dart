@@ -20,9 +20,9 @@ class RegistPageStep6 extends GetView<AuthentificationController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
-              height: 115,
-            ),
+             SizedBox(
+            height: MediaQuery.of(context).size.height < 800 ? 115 : 125,
+          ),
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -36,9 +36,9 @@ class RegistPageStep6 extends GetView<AuthentificationController> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
+             SizedBox(
+            height: MediaQuery.of(context).size.height < 800 ? 5 : 10,
+          ),
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -52,9 +52,9 @@ class RegistPageStep6 extends GetView<AuthentificationController> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 50,
-            ),
+             SizedBox(
+            height: MediaQuery.of(context).size.height < 800 ? 40 : 50,
+          ),
             TextFieldCustom(
               onChanged: (text) {
                 controller.continueRegistFunc();

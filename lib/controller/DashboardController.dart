@@ -573,7 +573,8 @@ class DashboardController extends GetxController {
       Get.back();
       Get.toNamed("/addpostpage", arguments: [
         userid,
-        {"img_file": imageSource}
+        {"img_file": imageSource},
+        ""
       ]);
     } on PlatformException catch (e) {
       print(e);

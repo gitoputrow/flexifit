@@ -293,7 +293,7 @@ class EditProfilePage extends GetView<SettingController> {
                             ],
                           ),
                           SizedBox(
-                            height: 30,
+                            height: MediaQuery.of(context).size.height < 800 ? 15 : 30,
                           )
                         ],
                       ),

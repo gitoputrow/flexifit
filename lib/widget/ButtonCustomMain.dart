@@ -47,7 +47,7 @@ class ButtonCustomMain extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             splashFactory: permission == true ? null : NoSplash.splashFactory,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
-            padding: EdgeInsets.symmetric(vertical: 23),
+            padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height < 800 ? 17 : 23),
             backgroundColor: permission == true ? primary : primaryFalse,
             foregroundColor: Color.fromRGBO(0, 0, 0, 1.0)),
       ),

@@ -298,7 +298,7 @@ class SosialMediaController extends GetxController {
     userPost = argumentData[1]["post_data"] ?? null;
     userProfileId = argumentData[1]["user_post"] ?? "";
     mode = argumentData[2];
-    mode == "postdetail" ? await getPostComment() : await getUserSosmedData();
+    mode == "postdetail" ? await getPostComment() : mode == "" ? null : await getUserSosmedData();
     print(mode);
     super.onInit();
   }

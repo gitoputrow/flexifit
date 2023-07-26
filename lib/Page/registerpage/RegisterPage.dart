@@ -71,7 +71,7 @@ class RegisterPage extends GetView<AuthentificationController> {
                               ),
                             ),
                             SizedBox(
-                              height: 65,
+                              height: MediaQuery.of(context).size.height < 800 ? 35 : 65,
                             )
                           ],
                         ),
@@ -83,7 +83,7 @@ class RegisterPage extends GetView<AuthentificationController> {
                       SizedBox(
                         height: 43,
                       ),
-                      Container(
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                         child: IconButton(
                             onPressed: () {

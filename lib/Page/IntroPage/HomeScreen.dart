@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                           title: "Sign in",
                           primary: Color.fromRGBO(10, 12, 13, 0.8)),
                       SizedBox(
-                        height: 65.5,
+                        height: MediaQuery.of(context).size.height/16,
                       )
                     ],
                   ),

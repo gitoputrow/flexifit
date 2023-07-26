@@ -31,7 +31,8 @@ class TextFieldSettingCustom extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(color: Colors.white, fontFamily: 'RubikLight', fontSize: 17),
+          textScaleFactor: 1,
+          style: TextStyle(color: Colors.white, fontFamily: 'RubikLight', fontSize: MediaQuery.of(context).size.height < 800 ? 15 : 17),
         ),
         TextField(
           keyboardType: keyboardType,
@@ -42,7 +43,7 @@ class TextFieldSettingCustom extends StatelessWidget {
             contentPadding: EdgeInsets.only(left: 15, top: SuffixIcon == null ? 2 : 15),
             hintText: hintText,
             hintStyle: TextStyle(
-                color: Color.fromRGBO(255, 255, 255, 0.5), fontFamily: 'RubikMedium', fontSize: 18),
+                color: Color.fromRGBO(255, 255, 255, 0.5), fontFamily: 'RubikMedium', fontSize: MediaQuery.of(context).size.height < 800 ? 15 : 18),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
             ),
@@ -53,7 +54,7 @@ class TextFieldSettingCustom extends StatelessWidget {
           ),
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 0.8),
-            fontSize: 18,
+            fontSize: MediaQuery.of(context).size.height < 800 ? 15 : 18,
           ),
         )
       ],

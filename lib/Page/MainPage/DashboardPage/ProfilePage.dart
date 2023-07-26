@@ -74,24 +74,21 @@ class ProfilePage extends GetView<DashboardController> {
                                               item,
                                               textScaleFactor: 1,
                                               style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w700
-                                              ),
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w700),
                                             )))
                                         .toList(),
                                     onChanged: (value) {
                                       controller.selectedValue = value as String;
                                     },
                                     value: controller.selectedValue,
-                                    
-                                alignment: Alignment.centerLeft,
-                                buttonWidth: MediaQuery.of(context).size.width/2.5,
-                                dropdownDecoration: BoxDecoration(
-                                  color: Color.fromRGBO(173, 5, 24, 1),
-                                  borderRadius: BorderRadius.circular(16),
-                                  border: Border.all(color: Colors.white)
-                                ),
+                                    alignment: Alignment.centerLeft,
+                                    buttonWidth: MediaQuery.of(context).size.width / 2.5,
+                                    dropdownDecoration: BoxDecoration(
+                                        color: Color.fromRGBO(173, 5, 24, 1),
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(color: Colors.white)),
                                     selectedItemBuilder: ((context) {
                                       return controller.items
                                           .map((item) => DropdownMenuItem<String>(
@@ -116,6 +113,7 @@ class ProfilePage extends GetView<DashboardController> {
                         icon: Image.asset("asset/Image/settingprofile.png"),
                         iconSize: 42,
                         onPressed: () {
+                          print(MediaQuery.of(context).size.height);
                           Get.toNamed("/settingpage", arguments: controller.user);
                         },
                       ),
@@ -124,7 +122,8 @@ class ProfilePage extends GetView<DashboardController> {
                   SizedBox(
                     height: 30,
                   ),
-                  Obx(() => controller.selectedValue == "My Program" ? MyProgramPage() : MyProfilePage())
+                  Obx(() =>
+                      controller.selectedValue == "My Program" ? MyProgramPage() : MyProfilePage())
                   // Text(
                   //   "My Body",
                   //   style: TextStyle(fontSize: 22, fontFamily: 'RubikReguler', color: Colors.white),

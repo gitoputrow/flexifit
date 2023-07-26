@@ -13,7 +13,7 @@ class CustomBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 25, top: 5),
+      margin: EdgeInsets.only(bottom: 20, top: 5),
       child: BottomNavigationBar(
         elevation: 0,
         onTap: onTap,

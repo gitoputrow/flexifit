@@ -17,7 +17,7 @@ class RegistPageStep3 extends GetView<AuthentificationController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
-            height: 125,
+            height: MediaQuery.of(context).size.height < 800 ? 115 : 125,
           ),
           Align(
             alignment: Alignment.center,
@@ -32,8 +32,8 @@ class RegistPageStep3 extends GetView<AuthentificationController> {
               ),
             ),
           ),
-          SizedBox(
-            height: 50,
+           SizedBox(
+            height: MediaQuery.of(context).size.height < 800 ? 40 : 50,
           ),
           Obx(
             () => CustomRadioButton(
