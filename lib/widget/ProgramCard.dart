@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pain/model/ProgramWO.dart';
+import 'package:pain/widget/ShimmerLoading.dart';
 
 class ProgramCard extends StatelessWidget {
   double width;
@@ -28,33 +29,28 @@ class ProgramCard extends StatelessWidget {
           child: Stack(
             children: [
               CachedNetworkImage(
-                      imageUrl: programWO.picture!,
-                      height: height,
-                      width: width,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) {
-                        return Container(
-                          color: Colors.white,
-                          child: Center(
-                            child: Text(
-                              "image_not_found",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      progressIndicatorBuilder: (context, url, progress) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: Color.fromRGBO(170, 5, 27, 1),
-                            value: progress.progress,
-                          ),
-                        );
-                      },
+                imageUrl: programWO.picture!,
+                height: height,
+                width: width,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) {
+                  return Container(
+                    color: Colors.white,
+                    child: Center(
+                      child: Text(
+                        "image_not_found",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                      ),
                     ),
+                  );
+                },
+                progressIndicatorBuilder: (context, url, progress) {
+                  return ShimmerLoading();
+                },
+              ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 36),
                 child: Column(
@@ -64,8 +60,10 @@ class ProgramCard extends StatelessWidget {
                     Text(
                       programWO.day!,
                       textScaleFactor: 1,
-                      style:
-                          TextStyle(fontSize: 35, fontFamily: 'RubikSemiBold', color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 35,
+                          fontFamily: 'RubikSemiBold',
+                          color: Colors.white),
                     ),
                     SizedBox(
                       height: 13,
@@ -73,8 +71,10 @@ class ProgramCard extends StatelessWidget {
                     Text(
                       programWO.title!,
                       textScaleFactor: 1,
-                      style:
-                          TextStyle(fontSize: 18, fontFamily: 'RubikRegular', color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'RubikRegular',
+                          color: Colors.white),
                     ),
                     SizedBox(
                       height: 35,

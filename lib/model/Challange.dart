@@ -1,3 +1,5 @@
+import 'package:pain/model/WorkoutData.dart';
+
 class Challange {
   List<Level>? _level;
   String? _picture;
@@ -49,8 +51,14 @@ class Level {
   String? _picture;
   String? _title;
   String? _total;
+  WorkoutData? _workoutData;
 
-  Level({String? desc, String? picture, String? title, String? total}) {
+  Level(
+      {String? desc,
+      String? picture,
+      String? title,
+      String? total,
+      WorkoutData? workoutData}) {
     if (desc != null) {
       this._desc = desc;
     }
@@ -63,6 +71,9 @@ class Level {
     if (total != null) {
       this._total = total;
     }
+    if (workoutData != null) {
+      this._workoutData = workoutData;
+    }
   }
 
   String? get desc => _desc;
@@ -73,6 +84,8 @@ class Level {
   set title(String? title) => _title = title;
   String? get total => _total;
   set total(String? total) => _total = total;
+  WorkoutData? get workoutData => _workoutData;
+  set workoutData(WorkoutData? workoutData) => _workoutData = workoutData;
 
   Level.fromJson(Map<String, dynamic> json) {
     _desc = json['desc'];

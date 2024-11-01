@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pain/theme/colors.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   Color backgroundColor;
@@ -69,13 +70,11 @@ class CustomAlertDialog extends StatelessWidget {
                                 fontSize: 18, fontFamily: 'RubikMedium', color: Colors.white),
                           ),
                           style: ElevatedButton.styleFrom(
-                              shape:
+                              foregroundColor: Color.fromRGBO(0, 0, 0, 1.0), backgroundColor: primaryColor, shape:
                                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               padding: EdgeInsets.symmetric(
                                 vertical: 18,
-                              ),
-                              primary: Color.fromRGBO(205, 5, 27, 0.8),
-                              onPrimary: Color.fromRGBO(0, 0, 0, 1.0)),
+                              )),
                         ),
                       ),
                     ],
@@ -96,13 +95,11 @@ class CustomAlertDialog extends StatelessWidget {
                                 fontSize: 18, fontFamily: 'RubikMedium', color: Colors.black),
                           ),
                           style: ElevatedButton.styleFrom(
-                              shape:
+                              foregroundColor: Color.fromRGBO(0, 0, 0, 1.0), backgroundColor: Colors.white, shape:
                                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               padding: EdgeInsets.symmetric(
                                 vertical: 18,
-                              ),
-                              primary: Colors.white,
-                              onPrimary: Color.fromRGBO(0, 0, 0, 1.0)),
+                              )),
                         ),
                       ),
                     ],

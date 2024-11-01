@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Page/IntroPage/splashscreen.dart';
+import '../page/IntroPage/splashscreen.dart';
 import '../StorageProvider.dart';
 import '../model/UserData.dart';
 import '../model/UserPhoto.dart';
@@ -21,7 +21,7 @@ import '../widget/ToastMessageCustom.dart';
 class SettingController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final storageRef = FirebaseStorage.instance.ref();
-  DatabaseReference database = FirebaseDatabase().ref();
+  DatabaseReference database = FirebaseDatabase.instance.ref();
 
   Rx<UserData> _user = UserData().obs;
   UserData get user => _user.value;

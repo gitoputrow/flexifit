@@ -113,8 +113,8 @@ class UserData {
 
   UserData.fromJson(Map<String, dynamic> json) {
     _age = json['age'];
-    _challengeData = json['challengeData'] != null
-        ? new ChallengeData.fromJson(json['challengeData'])
+    _challengeData = json['challenge_data'] != null
+        ? new ChallengeData.fromJson(json['challenge_data'])
         : null;
     _dislike = json['dislike'];
     _gender = json['gender'];
@@ -123,12 +123,12 @@ class UserData {
     _like = json['like'];
     _name = json['name'];
     _pass = json['pass'];
-    _photoprofile = json['photoprofile'];
+    _photoprofile = json['photo_profile'];
     _physical = json['physical'];
     _post = json['post'];
-    if (json['targetMuscle'] != null) {
+    if (json['target_muscle'] != null) {
       _targetMuscle = <TargetMuscle>[];
-      json['targetMuscle'].forEach((v) {
+      json['target_muscle'].forEach((v) {
         _targetMuscle!.add(new TargetMuscle.fromJson(v));
       });
     }

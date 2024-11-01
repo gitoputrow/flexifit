@@ -1,96 +1,91 @@
+// To parse this JSON data, do
+//
+//     final userPost = userPostFromJson(jsonString);
+
+import 'dart:convert';
+
+UserPost userPostFromJson(String str) => UserPost.fromJson(json.decode(str));
+
+String userPostToJson(UserPost data) => json.encode(data.toJson());
+
 class UserPost {
-  String? _caption;
-  int? _comment;
-  String? _date;
-  int? _dislike;
-  String? _id;
-  String? _imageSource;
-  int? _like;
-  String? _profilepicture;
-  String? _username;
-  bool liked = false;
+  String? caption;
+  int? comment;
+  DateTime? date;
+  int? dislike;
+  String? id;
+  String? imageSource;
+  String? idUser;
+  int? like;
+  bool? liked;
+  String? profilepicture;
+  String? username;
 
-  UserPost(
-      {String? caption,
-      int? comment,
-      String? date,
-      int? dislike,
-      String? id,
-      String? imageSource,
-      int? like,
-      String? profilepicture,
-      String? username}) {
-    if (caption != null) {
-      this._caption = caption;
-    }
-    if (comment != null) {
-      this._comment = comment;
-    }
-    if (date != null) {
-      this._date = date;
-    }
-    if (dislike != null) {
-      this._dislike = dislike;
-    }
-    if (id != null) {
-      this._id = id;
-    }
-    if (imageSource != null) {
-      this._imageSource = imageSource;
-    }
-    if (like != null) {
-      this._like = like;
-    }
-    if (profilepicture != null) {
-      this._profilepicture = profilepicture;
-    }
-    if (username != null) {
-      this._username = username;
-    }
-  }
+  UserPost({
+    this.caption,
+    this.comment,
+    this.date,
+    this.dislike,
+    this.id,
+    this.imageSource,
+    this.like,
+    this.idUser,
+    this.liked = false,
+    this.profilepicture,
+    this.username,
+  });
 
-  String? get caption => _caption;
-  set caption(String? caption) => _caption = caption;
-  int? get comment => _comment;
-  set comment(int? comment) => _comment = comment;
-  String? get date => _date;
-  set date(String? date) => _date = date;
-  int? get dislike => _dislike;
-  set dislike(int? dislike) => _dislike = dislike;
-  String? get id => _id;
-  set id(String? id) => _id = id;
-  String? get imageSource => _imageSource;
-  set imageSource(String? imageSource) => _imageSource = imageSource;
-  int? get like => _like;
-  set like(int? like) => _like = like;
-  String? get profilepicture => _profilepicture;
-  set profilepicture(String? profilepicture) => _profilepicture = profilepicture;
-  String? get username => _username;
-  set username(String? username) => _username = username;
+  UserPost copyWith({
+    String? caption,
+    int? comment,
+    DateTime? date,
+    int? dislike,
+    String? id,
+    String? idUser,
+    String? imageSource,
+    int? like,
+    bool? liked,
+    String? profilepicture,
+    String? username,
+  }) =>
+      UserPost(
+        caption: caption ?? this.caption,
+        comment: comment ?? this.comment,
+        date: date ?? this.date,
+        dislike: dislike ?? this.dislike,
+        id: id ?? this.id,
+        idUser: idUser ?? this.idUser,
+        imageSource: imageSource ?? this.imageSource,
+        like: like ?? this.like,
+        liked: liked ?? this.liked,
+        profilepicture: profilepicture ?? this.profilepicture,
+        username: username ?? this.username,
+      );
 
-  UserPost.fromJson(Map<String, dynamic> json) {
-    _caption = json['caption'];
-    _comment = json['comment'];
-    _date = json['date'];
-    _dislike = json['dislike'];
-    _id = json['id'];
-    _imageSource = json['imageSource'];
-    _like = json['like'];
-    _profilepicture = json['profilepicture'];
-    _username = json['username'];
-  }
+  factory UserPost.fromJson(Map<String, dynamic> json) => UserPost(
+        caption: json["caption"],
+        comment: json["comment"],
+        date: DateTime.parse(json["date"]),
+        dislike: json["dislike"],
+        id: json["id"],
+        imageSource: json["imageSource"],
+        like: json["like"],
+        idUser: json["idUser"],
+        // liked: json["liked"],
+        profilepicture: json["profilepicture"],
+        username: json["username"],
+      );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['caption'] = this._caption;
-    data['comment'] = this._comment;
-    data['date'] = this._date;
-    data['dislike'] = this._dislike;
-    data['id'] = this._id;
-    data['imageSource'] = this._imageSource;
-    data['like'] = this._like;
-    data['profilepicture'] = this._profilepicture;
-    data['username'] = this._username;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        "caption": caption,
+        "comment": comment,
+        "date": date,
+        "dislike": dislike,
+        "id": id,
+        "imageSource": imageSource,
+        "like": like,
+        "liked": liked,
+        "profilepicture": profilepicture,
+        "username": username,
+      };
 }

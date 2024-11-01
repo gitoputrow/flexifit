@@ -18,7 +18,7 @@ import '../widget/ToastMessageCustom.dart';
 class SosialMediaController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final storageRef = FirebaseStorage.instance.ref();
-  DatabaseReference database = FirebaseDatabase().ref();
+  DatabaseReference database = FirebaseDatabase.instance.ref();
 
   Rx<TextEditingController> _caption = TextEditingController().obs;
   TextEditingController get caption => _caption.value;

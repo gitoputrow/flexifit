@@ -1,16 +1,20 @@
+import 'package:pain/model/WorkoutData.dart';
+
 class ProgramWO {
   String? _day;
   String? _picture;
   String? _dayDesc;
   String? _title;
   String? _workoutName;
+  WorkoutData? _workoutData;
 
   ProgramWO(
       {String? day,
       String? picture,
       String? dayDesc,
       String? title,
-      String? workoutName}) {
+      String? workoutName,
+      WorkoutData? workoutData}) {
     if (day != null) {
       this._day = day;
     }
@@ -26,6 +30,9 @@ class ProgramWO {
     if (workoutName != null) {
       this._workoutName = workoutName;
     }
+    if (workoutData != null) {
+      this._workoutData = workoutData;
+    }
   }
 
   String? get day => _day;
@@ -38,6 +45,8 @@ class ProgramWO {
   set title(String? title) => _title = title;
   String? get workoutName => _workoutName;
   set workoutName(String? workoutName) => _workoutName = workoutName;
+  WorkoutData? get workoutData => _workoutData;
+  set workoutData(WorkoutData? workoutData) => _workoutData = workoutData;
 
   ProgramWO.fromJson(Map<String, dynamic> json) {
     _day = json['day'];

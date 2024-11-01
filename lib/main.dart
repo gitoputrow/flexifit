@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:pain/Page/IntroPage/HomeScreen.dart';
+import 'package:pain/page/IntroPage/HomeScreen.dart';
 import 'package:pain/appRoutes.dart';
-import 'package:pain/Page/IntroPage/splashscreen.dart';
+import 'package:pain/page/IntroPage/splashscreen.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl_standalone.dart';
@@ -71,6 +71,7 @@ class _MyAppState extends State<MyApp> {
       ),
       getPages: appRoutes.pages,
       initialRoute: "/splashscreen",
+      initialBinding: InitialBinding(),
     );
   }
 }

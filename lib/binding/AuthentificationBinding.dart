@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-
-import '../controller/AuthetificationController.dart';
+import 'package:pain/feature/authentification/controller/AuthetificationController.dart';
 
 class AuthentificationBinding implements Bindings {
   @override

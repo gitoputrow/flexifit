@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pain/theme/colors.dart';
 
 class SearchBarCustomSosmed extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -46,7 +47,7 @@ class SearchBarCustomSosmed extends StatelessWidget {
         InkWell(
           onTap: onTapSearch,
           child: CircleAvatar(
-            backgroundColor: Color.fromRGBO(170, 5, 27, 1),
+            backgroundColor: primaryColor,
             child: Icon(
               Icons.search,
               color: Colors.white,
@@ -59,7 +60,7 @@ class SearchBarCustomSosmed extends StatelessWidget {
         InkWell(
           onTap: onTapAdd,
           child: CircleAvatar(
-            backgroundColor: Color.fromRGBO(170, 5, 27, 1),
+            backgroundColor: primaryColor,
             child: Icon(
               Icons.add,
               color: Colors.white,

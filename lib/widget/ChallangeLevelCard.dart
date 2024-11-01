@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
+import 'package:pain/widget/ShimmerLoading.dart';
 
 class ChallangeLevelCard extends StatelessWidget {
   double height;
@@ -32,7 +33,7 @@ class ChallangeLevelCard extends StatelessWidget {
         child: Stack(
           children: [
             CachedNetworkImage(
-              imageUrl : imageUrl,
+              imageUrl: imageUrl,
               height: height,
               width: width,
               fit: BoxFit.cover,
@@ -51,15 +52,7 @@ class ChallangeLevelCard extends StatelessWidget {
                 );
               },
               progressIndicatorBuilder: (context, url, progress) {
-                
-              
-                
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromRGBO(170, 5, 27, 1),
-                    value: progress.progress,
-                  ),
-                );
+                return ShimmerLoading(isLoading: true,);
               },
             ),
             Container(
@@ -80,7 +73,8 @@ class ChallangeLevelCard extends StatelessWidget {
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: finish == 0 ? "$finish Time" : "$finish Times",
+                            text:
+                                finish == 0 ? "$finish Time" : "$finish Times",
                             style: TextStyle(
                               fontFamily: "RubikMedium",
                               fontSize: 17,
@@ -110,7 +104,9 @@ class ChallangeLevelCard extends StatelessWidget {
                         Text(
                           descLevel,
                           style: TextStyle(
-                              fontSize: 19, fontFamily: 'RubikRegular', color: Colors.white),
+                              fontSize: 19,
+                              fontFamily: 'RubikRegular',
+                              color: Colors.white),
                         ),
                         SizedBox(
                           height: 30,

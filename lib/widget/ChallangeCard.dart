@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:pain/model/Challange.dart';
+import 'package:pain/widget/ShimmerLoading.dart';
 
 class ChallangeCard extends StatelessWidget {
   double height;
@@ -45,12 +46,7 @@ class ChallangeCard extends StatelessWidget {
                 );
               },
               progressIndicatorBuilder: (context, url, progress) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: Color.fromRGBO(170, 5, 27, 1),
-                    value: progress.progress,
-                  ),
-                );
+                return ShimmerLoading();
               },
             ),
             Container(

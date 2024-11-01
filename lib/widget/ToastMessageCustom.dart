@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pain/theme/colors.dart';
 
 class ToastMessageCustom{
-  static void ToastMessage(String text,Color color) {
+  static void ToastMessage(String text,Color color,{Color? textColor}) {
     Get.snackbar(
       "",
       "",
@@ -16,7 +17,7 @@ class ToastMessageCustom{
             "asset/Icon/warning.png",
             width: 30,
             height: 30,
-            color: Colors.white,
+            color: textColor ?? infoColor,
           ),
           SizedBox(
             width: 15,
@@ -27,7 +28,7 @@ class ToastMessageCustom{
               //overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontFamily: "RubikMedium",
-                color: Colors.white,
+                color: textColor ?? infoColor,
                 fontSize: 16,
               ),
             ),

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pain/Page/IntroPage/HomeScreen.dart';
-import 'package:pain/Page/MainPage/DashboardPage.dart';
+import 'package:pain/page/IntroPage/HomeScreen.dart';
+import 'package:pain/page/MainPage/MainPage.dart';
 import 'package:pain/StorageProvider.dart';
 // import 'package:pain/ValidationPage.dart';
 

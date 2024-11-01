@@ -8,12 +8,12 @@ class CustomBottomNav extends StatelessWidget {
   final int index;
   final void Function(int) onTap;
 
-  CustomBottomNav({Key? key, required this.index,required this.onTap});
+  CustomBottomNav({Key? key, required this.index, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20, top: 5),
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height * 0.075,
       child: BottomNavigationBar(
         elevation: 0,
         onTap: onTap,
@@ -24,48 +24,82 @@ class CustomBottomNav extends StatelessWidget {
         backgroundColor: Color.fromRGBO(10, 12, 13, 1),
         items: [
           BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                  "asset/Image/HomeActiveIcon.png",
-                  width: 40,
-                  height: 40,
-                ),
-              icon: Image.asset(
-                  "asset/Image/HomeIcon.png",
-                  width: 40,
-                  height: 40,
-                ),
+              activeIcon: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: Icon(
+                    Icons.home,
+                    color: Colors.black,
+                    size: 32,
+                  )),
+              icon: const Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 36,
+              ),
+              label: "Dashboard",
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              activeIcon: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: const Icon(
+                    Icons.fitness_center_rounded,
+                    color: Colors.black,
+                    size: 32,
+                  )),
+              icon: const Icon(
+                Icons.fitness_center_rounded,
+                color: Colors.white,
+                size: 36,
+              ),
+              label: "Challange",
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              activeIcon: Container(
+                  padding: EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: const Icon(
+                    Icons.place_rounded,
+                    color: Colors.black,
+                    size: 32,
+                  )),
+              icon: const Icon(
+                Icons.place_rounded,
+                color: Colors.white,
+                size: 36,
+              ),
+              label: "Places",
+              backgroundColor: Colors.black),
+          BottomNavigationBarItem(
+              activeIcon:
+                  Icon(IconlyBold.discovery, color: Colors.white, size: 40),
+              icon: Icon(
+                IconlyLight.discovery,
+                color: Colors.white,
+                size: 39,
+              ),
               label: "a",
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                  "asset/Image/workoutIconActive.png",
-                  width: 40,
-                  height: 40,
-                ),
-              icon:Image.asset(
-                  "asset/Image/workoutIcon.png",
-                  width: 40,
-                  height: 40,
-                ),
-              label: "a",
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              activeIcon: Icon(IconlyBold.discovery,color: Colors.white,size: 40),
-              icon:Icon(IconlyLight.discovery,color: Colors.white,size: 39,),
-              label: "a",
-              backgroundColor: Colors.black),
-          BottomNavigationBarItem(
-              activeIcon: Image.asset(
-                  "asset/Image/profilepageIconActive.png",
-                  width: 40,
-                  height: 40,
-                ),
-              icon: Image.asset(
-                  "asset/Image/profilepageIcon.png",
-                  width: 40,
-                  height: 40,
-                ),
-              label: "a",
+              activeIcon: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.black,
+                    size: 32,
+                  )),
+              icon: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 36,
+              ),
+              label: "Profile",
               backgroundColor: Colors.black),
         ],
       ),

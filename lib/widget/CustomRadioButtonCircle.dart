@@ -18,27 +18,21 @@ class CustomRadioButtonCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ElevatedButton(
+    return ElevatedButton(
         onPressed: onPressed,
-        child: Container(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            title,
-            textScaleFactor: 1,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontFamily: 'RubikSemiBold',
-              fontSize: 20,
-              color: colorText,
-            ),
+        child: Text(
+          title,
+          textScaleFactor: 1,
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontFamily: 'RubikSemiBold',
+            fontSize: 20,
+            color: colorText,
           ),
         ),
         style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-            primary: colorButton,
-            padding: EdgeInsets.symmetric(vertical: 21)),
-      ),
-    );
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)), backgroundColor: colorButton,
+            padding: EdgeInsets.symmetric(horizontal: 28,vertical: 20)),
+      );
   }
 }

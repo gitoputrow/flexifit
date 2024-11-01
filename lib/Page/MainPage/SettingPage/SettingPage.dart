@@ -30,8 +30,7 @@ class SettingPage extends GetView<SettingController> {
                 Container(
                   padding: EdgeInsets.only(left: 20, top: 30),
                   child: IconButton(
-                    icon: Image.asset("asset/Image/backsetting.png"),
-                    iconSize: 40,
+                    icon: Image.asset("asset/Image/backsetting.png",width: 40,height: 40,),
                     onPressed: () {
                       Navigator.pop(context);
                     },
