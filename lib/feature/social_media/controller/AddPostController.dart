@@ -48,11 +48,19 @@ class AddPostController extends GetxController {
                   "caption": caption.text,
                   "date": date,
                   "like": 0,
-                  "dislike": 0,
                   "comment": 0,
                 }).then(
-                  (value) {
-                    Get.offAllNamed("/dashboard", arguments: 2);
+                  (value) async {
+                    final data = await firestore
+                        .collection("socialMediaData")
+                        .where("idUser", isEqualTo: userid)
+                        .get();
+                    await firestore
+                        .collection('usersData')
+                        .doc(userid)
+                        .update({"post": data.docs.length});
+                    Get.back();
+                    Get.back(result: true);
                   },
                 );
                 // await database.child("SosialMedia").child(idPic).set({

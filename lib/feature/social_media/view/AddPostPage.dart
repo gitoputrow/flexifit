@@ -3,9 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:pain/feature/social_media/controller/AddPostController.dart';
-
-import '../../../controller/SosialMediaController.dart';
-import '../../../widget/ButtonCustomMain.dart';
+import '../../../widget/CustomButton.dart';
 
 class AddPostPage extends GetView<AddPostController> {
   const AddPostPage({super.key});

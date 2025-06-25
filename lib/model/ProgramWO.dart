@@ -1,4 +1,4 @@
-import 'package:pain/model/WorkoutData.dart';
+import 'package:pain/feature/workout/models/WorkoutData.dart';
 
 class ProgramWO {
   String? _day;

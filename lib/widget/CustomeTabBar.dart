@@ -67,3 +67,54 @@ class TabBarPrimary extends StatelessWidget implements PreferredSizeWidget {
     return const Size.fromHeight(56);
   }
 }
+
+class TabBarSecondary extends StatelessWidget {
+  const TabBarSecondary(
+      {super.key, required this.controller, required this.texts, this.icons, this.onTap});
+
+  final TabController controller;
+  final List<String> texts;
+  final List<IconData?>? icons;
+  final Function(int)? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+      labelPadding: EdgeInsets.only(bottom: 12),
+      unselectedLabelColor: Colors.white,
+      labelColor: primaryColor,
+      dividerColor: Colors.transparent,
+      indicatorColor: primaryColor,
+      // indicatorWeight: 4,
+      onTap: onTap,
+      indicatorSize: TabBarIndicatorSize.tab,
+      overlayColor: MaterialStateColor.resolveWith(
+        (states) => Colors.transparent,
+      ),
+      tabs: List.generate(
+        texts.length,
+        (index) => Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icons?[index] != null) ...[
+              Icon(icons?[index], size: 24),
+              SizedBox(
+                width: 6,
+              ),
+            ],
+            Text(
+              texts[index],
+              style: TextStyle(
+                fontSize: 22,
+                fontFamily: 'PoppinsBoldSemi',
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      controller: controller,
+    );
+  }
+}

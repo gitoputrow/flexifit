@@ -73,6 +73,9 @@ class RegisterController extends GetxController {
   set cpassResistVisble(bool cpassResistVisble) =>
       _cpassResistVisble.value = cpassResistVisble;
 
+  double? dailyProtein = 0.0;
+  double? dailyCalories = 0.0;
+
   Rx<TextEditingController> name = TextEditingController().obs;
   Rx<TextEditingController> age = TextEditingController().obs;
   Rx<TextEditingController> weight = TextEditingController().obs;
@@ -125,6 +128,59 @@ class RegisterController extends GetxController {
 
   List<String> registButTitle = ["Continue", "Finish", "Let's Get Fit"];
 
+  void setProteinDaily() {
+    double proteinPerGram = () {
+      if (physicalRes == "new") {
+        return goalRes == "build" ? 1.4 : 1.6;
+      }
+      if (physicalRes == "newb") {
+        return goalRes == "build" ? 1.6 : 1.8;
+      }
+      if (physicalRes == "pro") {
+        return goalRes == "build" ? 1.8 : 2.0;
+      }
+      if (physicalRes == "master") {
+        return goalRes == "build" ? 2.0 : 2.4;
+      }
+      return 0.0;
+    }();
+    dailyProtein = double.parse(payload['weight'] ?? "0.0") * proteinPerGram;
+  }
+
+  void setCaloriesDaily() {
+    double activityFactor = () {
+      if (physicalRes == "new") {
+        return 1.2;
+      }
+      if (physicalRes == "newb") {
+        return 1.375;
+      }
+      if (physicalRes == "pro") {
+        return 1.55;
+      }
+      if (physicalRes == "master") {
+        return 1.725;
+      }
+      return 0.0;
+    }();
+
+    double bmrMinusValue = genderRes == "male" ? 5 : 161;
+
+    double height = double.parse(payload['height'] ?? "0.0");
+    double weight = double.parse(payload['weight'] ?? "0.0");
+    double age = double.parse(payload['age'] ?? "0.0");
+
+    double bmr = (10 * weight) + (6.25 * height) + (5 * age) - bmrMinusValue;
+
+    dailyCalories = () {
+      if (goalRes == "build") {
+        return bmr * activityFactor + 250;
+      } else {
+        return bmr * activityFactor - 250;
+      }
+    }();
+  }
+
   void continueRegistFunc() {
     if (indexRegist == 0) {
       continuePermission = genderRes != "";
@@ -160,11 +216,30 @@ class RegisterController extends GetxController {
     return false;
   }
 
+  List<String> generateUsernameSearchKeywords(String text) {
+    text = text.toLowerCase().trim();
+    final substrings = <String>{};
+
+    for (int i = 0; i < text.length; i++) {
+      for (int j = i + 1; j <= text.length; j++) {
+        substrings.add(text.substring(i, j));
+      }
+    }
+
+    return substrings.toList();
+  }
+
   Future regist() async {
     Get.dialog(BasicLoader());
 
+    setCaloriesDaily();
+    setProteinDaily();
+
     payload.removeWhere((key, value) => key == "pass_confirm");
     payload.removeWhere((key, value) => key == "pass");
+
+    payload.addAll(
+        {"keywords": generateUsernameSearchKeywords(username.value.text)});
 
     List<Map<String, dynamic>> muscledata = [];
     if (physicalRes == "newb") {
@@ -182,26 +257,56 @@ class RegisterController extends GetxController {
       ...payload,
       "like": 0,
       "target_muscle": muscledata,
-      "dislike": 0,
+      "comment": 0,
       "post": 0,
       "photo_profile": urlPhoto,
-      "challenge_data": {
-        "Full BodyBeginner": 0,
-        "AbsBeginner": 0,
-        "TricepsBeginner": 0,
-        "BicepsBeginner": 0,
-        "ChestBeginner": 0,
-        "LegsBeginner": 0,
-        "CardioBeginner": 0,
-        "Full BodyIntermediate": 0,
-        "AbsIntermediate": 0,
-        "TricepsIntermediate": 0,
-        "BicepsIntermediate": 0,
-        "ChestIntermediate": 0,
-        "LegsIntermediate": 0,
-        "CardioIntermediate": 0,
-      }
+      "record_challenge_data": [
+        {
+          "title": "Abs",
+          "id": "PfbXihMQv8vzBPjfhSVs",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Leg's",
+          "id": "LqFKTAaXpkelKBseL6lT",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Chest",
+          "id": "T276gfLLARFuh8iFVsjw",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Cardio",
+          "id": "ZomyRPsip3IHCrZhLNlH",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Tricep's",
+          "id": "bv6YQXSYsWtr7ilThbBe",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Bicep's",
+          "id": "jnzxFst3yI2bCZQGsf6E",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+        {
+          "title": "Full body",
+          "id": "nwKA0wdPYHS2fTaSfFxJ",
+          "level": {"beginner": 0, "intermediate": 0},
+          "url": ""
+        },
+      ],
     };
+
+    Map<String, dynamic> bodyInformation = {};
 
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
@@ -215,36 +320,79 @@ class RegisterController extends GetxController {
             "Username already taken", Color.fromARGB(204, 245, 60, 13));
       } else {
         try {
-          await firestore.collection('usersData').add(dataUser).then((value) async => await StorageProvider.setUserToken(value.id));
-          // await database
-          //     .child("userDatabase")
-          //     .child("$id")
-          //     .set(dataUser)
-          //     .whenComplete(() => database
-          //         .child("userDatabase")
-          //         .child("$id")
-          //         .child("targetMuscle")
-          //         .set(muscledata)
-          //         .whenComplete(() => database
-          //                 .child("userDatabase")
-          //                 .child("$id")
-          //                 .child("challengeData")
-          //                 .set({
-          //               "Full BodyBeginner": 0,
-          //               "AbsBeginner": 0,
-          //               "TricepsBeginner": 0,
-          //               "BicepsBeginner": 0,
-          //               "ChestBeginner": 0,
-          //               "LegsBeginner": 0,
-          //               "CardioBeginner": 0,
-          //               "Full BodyIntermediate": 0,
-          //               "AbsIntermediate": 0,
-          //               "TricepsIntermediate": 0,
-          //               "BicepsIntermediate": 0,
-          //               "ChestIntermediate": 0,
-          //               "LegsIntermediate": 0,
-          //               "CardioIntermediate": 0,
-          //             })));
+          await firestore
+              .collection('usersData')
+              .add(dataUser)
+              .then((value) async {
+            await firestore
+                .collection("usersData")
+                .doc(value.id)
+                .update({"id": value.id});
+            await firestore
+                .collection("bodyInformationData")
+                .doc(value.id)
+                .set({
+              "idUser": value.id,
+              "information": [
+                {
+                  "title": "Your Goal",
+                  "value":
+                      goalRes == "build" ? "Build More Muscle" : "Lose Weight",
+                  "sort": 1
+                },
+                {
+                  "title": "Daily Protein",
+                  "value": "${dailyProtein?.toStringAsFixed(2)} Gram",
+                  "info": {
+                    "title": "Where did we get this value?",
+                    "body":
+                        "Protein Per Gram\nBuild Muscle : 1.4 - 2.0 gram/kg Body Weight\nBurn Fat : 1.6 - 2.4 gram/kg Body Weight",
+                    "formula": "Body Weight (Kg) X Protein Per Gram",
+                    "source": [
+                      {
+                        "title": "Protein For Build Muscle",
+                        "value":
+                            "https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0177-8"
+                      },
+                      {
+                        "title": "Protein For Burn Fat",
+                        "value":
+                            "https://faseb.onlinelibrary.wiley.com/doi/epdf/10.1096/fj.13-230227"
+                      }
+                    ]
+                  },
+                  "sort": 2
+                },
+                {
+                  "title": "Daily Calories",
+                  "value": "${dailyCalories?.toStringAsFixed(2)} Kcal",
+                  "info": {
+                    "title": "Where did we get this value?",
+                    "body": """
+  Activity Multiplier : 1.2 - 1.725\n
+  Calories Adjustment
+  +250 For Building Muscle
+  -250 For Burn Fat""",
+                    "formula": """BMR For Man 
+  (10×weight (kg))+(6.25×height (cm))−(5×age (years))+5\n
+  BMR For Woman
+  (10×weight (kg))+(6.25×height (cm))−(5×age (years))-161\n
+ (BMR x Activity Multiplier) +/- Calories Adjustment""",
+                    "source": [
+                      {
+                        "title": "BMR Mifflin-St Jeor Equation",
+                        "value":
+                            "https://healthhappinesslongevity.com/ANewPredictiveEquationForRestingEnergyExpenditureInHealthyIndividuals.pdf"
+                      },
+                    ]
+                  },
+                  "sort": 2
+                }
+              ]
+            });
+            await StorageProvider.setUserToken(value.id);
+          });
+
           Get.offAllNamed("/dashboard", arguments: 0);
         } catch (e) {
           Get.back();

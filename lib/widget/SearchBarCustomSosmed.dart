@@ -1,72 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:pain/theme/colors.dart';
+import 'package:pain/widget/TextFieldCustom.dart';
 
 class SearchBarCustomSosmed extends StatelessWidget {
   final TextEditingController textEditingController;
-  final void Function() onTapSearch;
-  final void Function() onTapAdd;
+  final void Function()? onTapSearch;
+  final void Function()? onTapAdd;
+  final String name;
+  final bool readOnly;
+  final bool isSearch;
+
+  final void Function(String?)? onChanged;
 
   const SearchBarCustomSosmed(
       {super.key,
       required this.textEditingController,
-      required this.onTapSearch,
-      required this.onTapAdd});
+      required this.name,
+      this.readOnly = false,
+      this.onChanged,
+      this.isSearch = false,
+      this.onTapSearch,
+      this.onTapAdd});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Flexible(
-          child: TextField(
-            controller: textEditingController,
-            style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500),
-            decoration: InputDecoration(
-              hintText: "Search Username....",
-              hintStyle: TextStyle(
-                color: Colors.grey,
-                fontSize: 15,
-              ),
-              // isDense: true,
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              fillColor: Colors.white,
-              filled: true,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.9), width: 1),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.9), width: 1),
-              ),
-            ),
+          child: TextFieldCustom(
+            name: name,
+            readOnly: readOnly,
+            textController: textEditingController,
+            textColor: Colors.black,
+            hintText: "Search Username....",
+            hintTextColor: Colors.grey,
+            onChanged: onChanged,
+            contentPadding: EdgeInsets.all(16),
+            fillColor: Colors.white,
           ),
         ),
-        SizedBox(
-          width: 12,
-        ),
-        InkWell(
-          onTap: onTapSearch,
-          child: CircleAvatar(
-            backgroundColor: primaryColor,
-            child: Icon(
-              Icons.search,
-              color: Colors.white,
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 12,
-        ),
-        InkWell(
-          onTap: onTapAdd,
-          child: CircleAvatar(
-            backgroundColor: primaryColor,
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-          ),
-        )
+        // SizedBox(
+        //   width: isSearch ? 12 : 0,
+        // ),
+        // if (isSearch) ...[
+        //   InkWell(
+        //     onTap: onTapSearch,
+        //     child: CircleAvatar(
+        //       backgroundColor: primaryColor,
+        //       child: Icon(
+        //         Icons.search,
+        //         color: Colors.white,
+        //       ),
+        //     ),
+        //   ),
+        // ],
+        // SizedBox(
+        //   width: isSearch ? 0 : 12,
+        // ),
+        // if (!isSearch) ...[
+        //   InkWell(
+        //     onTap: onTapAdd,
+        //     child: CircleAvatar(
+        //       backgroundColor: primaryColor,
+        //       child: Icon(
+        //         Icons.add,
+        //         color: Colors.white,
+        //       ),
+        //     ),
+        //   )
+        // ]
       ],
     );
   }

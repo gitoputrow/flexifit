@@ -137,11 +137,6 @@ class SocialMediaController extends GetxController {
               .then(
             (value) {
               element.liked = value.data()?["liked"]?[userid] != null;
-              element.like = value.data()?["liked"] == null
-                  ? 0
-                  : (value.data()?["liked"] as Map<String, dynamic>)
-                      .entries
-                      .length;
             },
           );
         }
@@ -158,74 +153,6 @@ class SocialMediaController extends GetxController {
       hasMore = data.docs.length == 5;
 
       loadMore = hasMore;
-
-      // if (!hasMore) {
-      //   userPostData = List<UserPost>.from(data.docs
-      //       .map((e) => UserPost.fromJson(json.decode(json.encode(e.data())))));
-      // } else {
-      //   List<UserPost> itemTemp = List<UserPost>.from(data.docs
-      //       .map((e) => UserPost.fromJson(json.decode(json.encode(e.data())))));
-      //   userPostData.addAll(itemTemp);
-      // }
-
-      // final dataChild = await database.child("SosialMedia").get();
-      // if (dataChild.exists) {
-      //   final Iterable<DataSnapshot> item;
-      //   final DataSnapshot data;
-      //   data = await database.child("SosialMedia").limitToLast(10).get();
-
-      //   item = data.children;
-
-      //   if (!hasMore) {
-      //     userPostData = List<UserPost>.from(item.toList().map(
-      //         (e) => UserPost.fromJson(json.decode(json.encode(e.value)))));
-      //   } else {
-      //     List<UserPost> itemTemp = List<UserPost>.from(item.toList().map(
-      //         (e) => UserPost.fromJson(json.decode(json.encode(e.value)))));
-      //     userPostData.addAll(itemTemp);
-      //   }
-
-      // for (var item in dataChild.child("SosialMedia").children) {
-      //   for (var data in item.children) {
-      //     userPostData
-      //         .add(UserPost.fromJson(json.decode(json.encode(data.value))));
-      //     // userPostData = List.from(data.children.map(
-      //     //     (e) => UserPost.fromJson(json.decode(json.encode(e.value)))));
-      //   }
-      // }
-
-      //   for (var element in userPostData) {
-      //     await database
-      //         .child("userDatabase")
-      //         .child(element.id!.substring(element.id!.indexOf("|") + 1))
-      //         .get()
-      //         .then((value) {
-      //       element.profilepicture =
-      //           value.child("photoprofile").value.toString();
-      //       element.username = value.child("username").value.toString();
-      //     });
-      //     await database
-      //         .child("SosialMedia")
-      //         .child(element.id!)
-      //         .get()
-      //         .then((value) {
-      //       if (value.child("liked").exists) {
-      //         element.liked = value.child("liked").child(userid!).exists;
-      //         element.like = value.child("liked").children.length;
-      //         // test.value = "adad";
-      //       }
-      //       if (value.child("commented").exists) {
-      //         element.comment = value.child("commented").children.length;
-      //       }
-      //     });
-      //   }
-
-      //   userPostData.sort((a, b) {
-      //     return DateTime.parse(a.date!).compareTo(DateTime.parse(b.date!));
-      //   });
-      //   log("masuk");
-      //   hasMore = (item as List).length == 10;
-      // }
     } catch (e) {
       print(e);
     }
@@ -241,11 +168,19 @@ class SocialMediaController extends GetxController {
         onPressedyes: () async {
           Get.back();
           Get.dialog(BasicLoader());
-          await storageRef.child("$userid").child(id).delete().whenComplete(
-              () async => await firestore
-                  .collection("socialMediaData")
-                  .doc(id)
-                  .delete());
+          await Future.wait([
+            storageRef.child("$userid").child(id).delete(),
+            firestore.collection("socialMediaData").doc(id).delete()
+          ]);
+
+          final result = await firestore
+              .collection("socialMediaData")
+              .where("idUser", isEqualTo: userid)
+              .get();
+          await firestore
+              .collection("usersData")
+              .doc(userid)
+              .update({"post": result.docs.length});
           await getUserPostData(isRefresh: true);
           Get.back();
         },
@@ -257,96 +192,34 @@ class SocialMediaController extends GetxController {
   }
 
   Future like(String userId, String idPost) async {
-    final data =
-        await firestore.collection("socialMediaData").doc(idPost).get();
+    final data = firestore.collection("socialMediaData").doc(idPost);
 
     final userid = await StorageProvider.getUserToken();
 
-    if (data.data()?["liked"]?["$userid"] != null) {
-      await firestore
-          .collection("socialMediaData")
-          .doc(idPost)
-          .update({"liked.$userid": FieldValue.delete()}).then(
-        (value) async {
-          final dataPost =
-              await firestore.collection("socialMediaData").doc(idPost).get();
-          await firestore.collection("socialMediaData").doc(idPost).set({
-            "like": (dataPost.data()?["liked"] as Map<String, dynamic>)
-                .entries
-                .length
-          }, SetOptions(merge: true)).then(
-            (value) async {
-              final dataLike = await firestore
-                  .collection("socialMediaData")
-                  .doc(idPost)
-                  .get();
-              userPostData[userPostData
-                      .indexWhere((element) => element.id == idPost)] =
-                  userPostData[userPostData
-                          .indexWhere((element) => element.id == idPost)]
-                      .copyWith(liked: false, like: dataLike.data()?['like']);
-            },
-          );
-        },
-      );
-    } else {
-      await firestore.collection("socialMediaData").doc(idPost).set({
-        "liked": {userid: "liked"}
-      }, SetOptions(merge: true)).then((value) async {
-        final dataPost =
-            await firestore.collection("socialMediaData").doc(idPost).get();
-        await firestore.collection("socialMediaData").doc(idPost).set({
-          "like":
-              (dataPost.data()?["liked"] as Map<String, dynamic>).entries.length
-        }, SetOptions(merge: true)).then(
-          (value) async {
-            final dataLike =
-                await firestore.collection("socialMediaData").doc(idPost).get();
-            userPostData[userPostData
-                .indexWhere((element) => element.id == idPost)] = userPostData[
-                    userPostData.indexWhere((element) => element.id == idPost)]
-                .copyWith(liked: true, like: dataLike.data()?['like']);
-          },
-        );
-      });
-    }
+    final result = await data.get();
 
-    // final dataPost =
-    //     await database.child("SosialMedia").child(userId).child(idPost).get();
-    // final userid = await StorageProvider.getUserToken();
-    // if (dataPost.child("liked").child(userid!).exists) {
-    //   await database
-    //       .child("SosialMedia")
-    //       .child(userId)
-    //       .child(idPost)
-    //       .child("liked")
-    //       .child(userid)
-    //       .remove()
-    //       .whenComplete(() {
-    //     userPostData[userPostData
-    //         .indexWhere((element) => element.id == idPost)] = userPostData[
-    //             userPostData.indexWhere((element) => element.id == idPost)]
-    //         .copyWith(
-    //             liked: false,
-    //             like: dataPost.child("liked").children.length - 1);
-    //     // testa.value = "b${userPostData[userPostData.indexWhere((element) => element.id == idPost)].id}";
-    //   });
-    // } else {
-    //   await database
-    //       .child("SosialMedia")
-    //       .child(userId)
-    //       .child(idPost)
-    //       .child("liked")
-    //       .child(userid)
-    //       .set("liked")
-    //       .whenComplete(() {
-    //     userPostData[userPostData
-    //         .indexWhere((element) => element.id == idPost)] = userPostData[
-    //             userPostData.indexWhere((element) => element.id == idPost)]
-    //         .copyWith(
-    //             liked: true, like: dataPost.child("liked").children.length + 1);
-    //   });
-    // }
+    result.data()?["liked"]?[userid] != null
+        ? await data.update({"liked.$userid": FieldValue.delete()})
+        : await data.set({
+            "liked": {userid: "liked"}
+          }, SetOptions(merge: true));
+
+    final result_2 = await data.get();
+
+    int likeData =
+        (result_2.data()?["liked"] as Map<String, dynamic>).entries.length;
+
+    await Future.wait(
+      [
+        data.set({"like": likeData}, SetOptions(merge: true)),
+      ],
+    );
+
+    userPostData[userPostData.indexWhere((element) => element.id == idPost)] =
+        userPostData[userPostData.indexWhere((element) => element.id == idPost)]
+            .copyWith(
+                liked: result.data()?["liked"]?[userid] != null ? false : true,
+                like: likeData);
   }
 
   Future pickImage(ImageSource source) async {
@@ -358,7 +231,11 @@ class SocialMediaController extends GetxController {
       imageSource = imageTemporary;
       imagepath = imageTemporary.path;
       Get.back();
-      Get.toNamed("/addpostpage", arguments: {"img_file": imageSource});
+      final result = await Get.toNamed("/addpostpage",
+          arguments: {"img_file": imageSource});
+      if (result != null) {
+        await getUserPostData(isRefresh: true);
+      }
     } on PlatformException catch (e) {
       print(e);
     }

@@ -1,28 +1,41 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:pain/feature/MainController.dart';
 import 'package:pain/feature/authentification/controller/RegisterController.dart';
-import 'package:pain/feature/places/controllers/PlacesController.dart';
+import 'package:pain/feature/places/controllers/AddReportController.dart';
+import 'package:pain/feature/places/controllers/WorkoutPlacesController.dart';
 import 'package:pain/feature/places/controllers/PlacesDetailController.dart';
+import 'package:pain/feature/places/controllers/ReportsPlaceController.dart';
+import 'package:pain/feature/places/views/AddReportView.dart';
+import 'package:pain/feature/places/views/PlaceReportView.dart';
 import 'package:pain/feature/places/views/PlacesDetailPageView.dart';
 import 'package:pain/feature/profile/controller/ProfileController.dart';
+import 'package:pain/feature/settings/controller/EditPasswordController.dart';
+import 'package:pain/feature/settings/controller/EditProfileController.dart';
+import 'package:pain/feature/settings/controller/SettingController.dart';
 import 'package:pain/feature/social_media/controller/AddPostController.dart';
+import 'package:pain/feature/social_media/controller/DetailSocialMediaController.dart';
 import 'package:pain/feature/social_media/controller/SocialMediaController.dart';
+import 'package:pain/feature/social_media/controller/SocialMediaProfileController.dart';
+import 'package:pain/feature/social_media/view/SearchUsernamePage.dart';
+import 'package:pain/feature/social_media/view/SocialMediaProfilePage.dart';
+import 'package:pain/feature/workout/controller/WorkoutFinishController.dart';
 import 'package:pain/feature/workout/controller/WorkoutListController.dart';
 import 'package:pain/feature/workout/controller/WorkoutProgressController.dart';
 import 'package:pain/feature/workout/view/WorkoutFinishPage.dart';
 import 'package:pain/feature/workout/view/WorkoutRestPage.dart';
 import 'package:pain/feature/workout/view/WorkoutStartPage.dart';
-import 'package:pain/feature/workout_challange/controller/WorkoutChallangeController.dart';
-import 'package:pain/feature/workout_challange/controller/WorkoutChallangeDetailController.dart';
+import 'package:pain/feature/challenge/controller/WorkoutChallengeController.dart';
+import 'package:pain/feature/challenge/controller/WorkoutChallengeDetailController.dart';
 import 'package:pain/feature/workout_program/controller/WorkoutProgramController.dart';
-import 'package:pain/page/IntroPage/splashscreen.dart';
-import 'package:pain/page/MainPage/MainPage.dart';
+import 'package:pain/feature/authentification/view/splashscreen.dart';
+import 'package:pain/feature/MainPage.dart';
 import 'package:pain/feature/social_media/view/SosmedPage.dart';
-import 'package:pain/page/MainPage/SettingPage/EditPasswordPage.dart';
-import 'package:pain/page/MainPage/SettingPage/EditProfilePage.dart';
-import 'package:pain/page/MainPage/SettingPage/SettingPage.dart';
+import 'package:pain/feature/settings/view/EditPasswordPage.dart';
+import 'package:pain/feature/settings/view/EditProfilePage.dart';
+import 'package:pain/feature/settings/view/SettingPageView.dart';
 import 'package:pain/feature/social_media/view/AddPostPage.dart';
-import 'package:pain/feature/workout_challange/view/ChallangeLevelPage.dart';
+import 'package:pain/feature/challenge/view/ChallangeLevelPage.dart';
 import 'package:pain/feature/workout/view/WorkoutPreparePage.dart';
 import 'package:pain/feature/authentification/view/RegisterPage.dart';
 import 'package:pain/binding/AuthentificationBinding.dart';
@@ -30,11 +43,9 @@ import 'package:pain/binding/DashboardBinding.dart';
 
 import 'feature/authentification/controller/LoginController.dart';
 import 'feature/authentification/view/LoginPage.dart';
+import 'feature/social_media/controller/SearchUsernameController.dart';
 import 'feature/workout/view/WorkoutListPage.dart';
 import 'feature/social_media/view/DetailPostPage.dart';
-import 'page/MainPage/SosmedPage/ProfilePostPage.dart';
-import 'binding/SettingBinding.dart';
-import 'binding/SosialMediaBinding.dart';
 
 class appRoutes {
   static final pages = <GetPage>[
@@ -62,8 +73,12 @@ class appRoutes {
     ),
     GetPage(
         name: "/dashboard",
-        page: () => MainPage(),
-        binding: DashboardBinding()),
+        page: () => MainView(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => MainController(),
+          ),
+        )),
     GetPage(
         name: "/challangelevel",
         page: () => ChallangeLevelPage(),
@@ -101,7 +116,7 @@ class appRoutes {
         page: () => WorkoutFinishPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
-            () => WorkoutProgressController(),
+            () => WorkoutFinishController(),
           ),
         )),
     GetPage(
@@ -110,16 +125,28 @@ class appRoutes {
     ),
     GetPage(
         name: "/settingpage",
-        page: () => SettingPage(),
-        binding: SettingBinding()),
+        page: () => SettingPageView(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => SettingController(),
+          ),
+        )),
     GetPage(
         name: "/editprofilepage",
         page: () => EditProfilePage(),
-        binding: SettingBinding()),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => EditProfileController(),
+          ),
+        )),
     GetPage(
         name: "/editpasswordpage",
         page: () => EditPasswordPage(),
-        binding: SettingBinding()),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => EditPasswordController(),
+          ),
+        )),
     GetPage(
         name: "/addpostpage",
         page: () => AddPostPage(),
@@ -131,7 +158,19 @@ class appRoutes {
     GetPage(
         name: "/detailpostpage",
         page: () => DetailPostPage(),
-        binding: SosialMediaBinding()),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => Detailsocialmediacontroller(),
+          ),
+        )),
+    GetPage(
+        name: "/userprofilepage",
+        page: () => SocialMediaProfilePage(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => SocialMediaProfileController(),
+          ),
+        )),
     GetPage(
         name: "/placedetailpage",
         page: () => PlacesDetailPageView(),
@@ -141,9 +180,29 @@ class appRoutes {
           ),
         )),
     GetPage(
-        name: "/profilepostpage",
-        page: () => ProfilePostPage(),
-        binding: SosialMediaBinding()),
+        name: "/addreportpage",
+        page: () => AddReportsView(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => AddReportController(),
+          ),
+        )),
+    GetPage(
+        name: "/placereportpage",
+        page: () => PlaceReportView(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => ReportsPlaceController(),
+          ),
+        )),
+    GetPage(
+        name: "/searchuserpage",
+        page: () => SearchUsernamePage(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => SearchUsernameController(),
+          ),
+        )),
   ];
 }
 
@@ -152,8 +211,8 @@ class InitialBinding extends Bindings {
   void dependencies() {
     // TODO: implement dependencies
     Get.lazyPut(() => WorkoutProgramController(), fenix: true);
-    Get.lazyPut(() => WorkoutChallangeController(), fenix: true);
-    Get.lazyPut(() => PlacesController(), fenix: true);
+    Get.lazyPut(() => WorkoutChallengeController(), fenix: true);
+    Get.lazyPut(() => WorkoutPlacesController(), fenix: true);
     Get.lazyPut(() => SocialMediaController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
   }

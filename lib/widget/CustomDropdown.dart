@@ -36,7 +36,7 @@ class CardCustomDropDown extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               showModalBottomSheet(
-                  backgroundColor: secondaryColor,
+                  backgroundColor: tertiaryColor,
                   context: context,
                   shape: RoundedRectangleBorder(
                     borderRadius:
@@ -72,10 +72,10 @@ class CardCustomDropDown extends StatelessWidget {
                                 ),
                                 TextFieldCustom(
                                   name: "search",
-                                  fillColor: secondaryColor,
+                                  fillColor: tertiaryColor,
                                   borderColorFocused: primaryColor,
                                   contentPadding: EdgeInsets.all(16),
-                                  borderColorEnabled: disabledTextColor,
+                                  borderColorEnabled: secondaryColor,
                                   hintText: "Search Province",
                                   hintTextColor: disabledTextColor,
                                   textColor: primaryTextColor,
@@ -153,7 +153,7 @@ class CardCustomDropDown extends StatelessWidget {
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: tertiaryTextColor, width: 1)),
+                  color: tertiaryColor),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

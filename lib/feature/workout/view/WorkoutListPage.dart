@@ -5,9 +5,9 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/workout/controller/WorkoutListController.dart';
 import 'package:pain/theme/colors.dart';
-import 'package:pain/widget/ButtonCustomMain.dart';
+import 'package:pain/widget/CustomButton.dart';
 import 'package:pain/widget/ShimmerLoading.dart';
-import 'package:pain/widget/WorkoutListCard.dart';
+import 'package:pain/feature/workout/view/widgets/WorkoutListCard.dart';
 
 class WorkoutListPage extends GetView<WorkoutListController> {
   const WorkoutListPage({Key? key}) : super(key: key);
@@ -164,7 +164,9 @@ class WorkoutListPage extends GetView<WorkoutListController> {
                                 Get.toNamed("/workoutstart", arguments: {
                                   "workout_name": controller.workoutName,
                                   "workout_data": controller.workoutData,
-                                  "challenge_data" : Get.arguments?['challenge_data']
+                                  "challenge_id": controller.idChallenge,
+                                  "challenge_level_title":
+                                      controller.levelChallengeName
                                 });
                               },
                               title: "Start",

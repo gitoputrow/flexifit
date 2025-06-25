@@ -1,12 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pain/feature/authentification/controller/AuthetificationController.dart';
 import 'package:pain/feature/authentification/controller/LoginController.dart';
 import 'package:pain/theme/colors.dart';
 import 'package:pain/widget/BasicLoader.dart';
-import 'package:pain/widget/ButtonCustomMain.dart';
+import 'package:pain/widget/CustomButton.dart';
 import 'package:pain/widget/TextFieldCustom.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
@@ -21,7 +22,7 @@ class LoginPage extends GetView<LoginController> {
       onTap: FocusManager.instance.primaryFocus?.unfocus,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: tertiaryColor,
+        backgroundColor: backgroundColor,
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: width * 0.075),
           child: FormBuilder(
@@ -30,12 +31,12 @@ class LoginPage extends GetView<LoginController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 27,
+                  height: 20,
                 ),
-                Image.asset(
-                  "asset/Image/Group_35.png",
-                  width: 65,
-                ),
+                SvgPicture.asset(
+                        "asset/Icon/app_logo.svg",
+                        width: 96,
+                      ),
                 SizedBox(
                   height: 18,
                 ),

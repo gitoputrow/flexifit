@@ -1,15 +1,21 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pain/page/IntroPage/HomeScreen.dart';
+import 'package:pain/feature/MainController.dart';
+import 'package:pain/feature/authentification/view/HomeScreen.dart';
 
 import '../../../StorageProvider.dart';
-import '../../../model/UserData.dart';
+import '../../../widget/CustomAlertDialog.dart';
+import '../../authentification/models/UserData.dart';
 import '../../../widget/ToastMessageCustom.dart';
+import '../../workout_program/controller/WorkoutProgramController.dart';
 
 class ProfileController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -55,22 +61,29 @@ class ProfileController extends GetxController {
   bool changeDataCheck = false;
 
   Future getUserData() async {
+    loading = true;
     try {
       final data = await firestore.collection("usersData").doc(userid).get();
       user = UserData.fromJson(json.decode(json.encode(data.data())));
-      goalTemp = user.goal!;
-      physicTemp = user.physical!;
-      muscleTemp.clear();
-      muscle.clear();
-      for (int i = 0; i < user.targetMuscle!.length; i++) {
-        muscleTemp.add(user.targetMuscle![i].muscle!);
-        muscle.add(user.targetMuscle![i].muscle!);
-      }
-      muscle.sort();
-      muscleTemp.sort();
+      resetData();
     } catch (e) {
       Get.offAll(HomeScreen());
     }
+    loading = false;
+  }
+
+  void resetData() {
+    goalTemp = user.goal!;
+    physicTemp = user.physical!;
+    muscleTemp.clear();
+    muscle.clear();
+    for (int i = 0; i < user.targetMuscle!.length; i++) {
+      muscleTemp.add(user.targetMuscle![i]);
+      muscle.add(user.targetMuscle![i]);
+    }
+    muscle.sort();
+    muscleTemp.sort();
+    changeDataCheck = false;
   }
 
   void changeData(String section, String value) {
@@ -91,6 +104,57 @@ class ProfileController extends GetxController {
     } else if (section == "physic") {
       physicTemp = value;
     }
+
+    changeDataCheck = goalTemp != user.goal ||
+        physicTemp != user.physical ||
+        muscleTemp != user.targetMuscle;
+  }
+
+  Future changeProgram(
+      {bool toSettingPage = false, bool toProfilePage = false}) async {
+    dynamic result;
+    if (toSettingPage || toProfilePage) {
+      result = await Get.dialog(CustomAlertDialog(
+          onPressedno: () {
+            Get.back();
+            resetData();
+          },
+          onPressedyes: () async {
+            Get.back(result: true);
+          },
+          backgroundColor: Color.fromRGBO(69, 63, 63, 0.773),
+          title: "Do you want to Change Your Program?",
+          fontColor: Color.fromARGB(204, 255, 255, 255),
+          fontSize: 20,
+          iconColor: Colors.white));
+    }
+    if (toSettingPage) {
+      Get.toNamed("/settingpage", arguments: user);
+    }
+    if (result != null || (!toProfilePage && !toSettingPage)) {
+      try {
+        log("masuk await profile");
+        await firestore.collection("usersData").doc(userid).update({
+          "physical": physicTemp,
+          "goal": goalTemp,
+          "target_muscle": List<Map>.from(muscleTemp.map(
+            (e) => {"muscle": e},
+          )),
+        });
+        await getUserData();
+        if (toProfilePage || toSettingPage) {
+          log("masuk await program");
+          WorkoutProgramController c = Get.find();
+          await c.getUserData();
+          Future.wait([
+            c.getBodyInformation(),
+            c.getProgramData(),
+          ]);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
   }
 
   @override
@@ -99,9 +163,8 @@ class ProfileController extends GetxController {
     if (userid == null) {
       Get.to(() => HomeScreen());
     }
-    loading = true;
     await getUserData();
-    loading = false;
+    
     super.onInit();
   }
 }

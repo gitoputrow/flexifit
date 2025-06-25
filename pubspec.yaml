@@ -27,7 +27,6 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_svg: ^2.0.10+1
   fluttertoast: ^8.0.9
   progress_indicators: ^1.0.0
   intl: ^0.19.0
@@ -46,13 +45,16 @@ dependencies:
   dropdown_button2: ^2.3.9
   cached_network_image: ^3.3.1
   iconly: ^1.0.1
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.3
   rename: ^3.0.2
   liquid_pull_to_refresh: ^3.0.1
   shimmer: ^3.0.0
   flutter_form_builder: ^9.4.1
   url_launcher: ^6.3.1
   win32: ^5.5.3
+  package_info_plus: ^8.1.0
+  flutter_svg: ^2.0.13
+  video_thumbnail: ^0.5.3
   flutter:
     sdk: flutter
 
@@ -61,8 +63,13 @@ dependencies:
   cupertino_icons: ^1.0.5
   firebase_storage: ^12.2.0
   geolocator: ^9.0.2
+  video_player: ^2.9.5
+  video_compress: ^3.1.4
 
-flutter_icons:
+dependency_overrides:
+  archive: ^3.6.1
+
+flutter_launcher_icons:
   image_path : "asset/ic_launcher.png"
   android : true
   ios : true

@@ -7,11 +7,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:pain/StorageProvider.dart';
+import 'package:pain/model/BodyInformation.dart';
 
 import '../../../model/ProgramWO.dart';
-import '../../../model/UserData.dart';
-import '../../../model/WorkoutData.dart';
-import '../../../page/IntroPage/HomeScreen.dart';
+import '../../authentification/models/UserData.dart';
+import '../../workout/models/WorkoutData.dart';
+import '../../authentification/view/HomeScreen.dart';
 import '../../../widget/BasicLoader.dart';
 
 class WorkoutProgramController extends GetxController {
@@ -22,6 +23,11 @@ class WorkoutProgramController extends GetxController {
   Rx<UserData> _user = UserData().obs;
   UserData get user => _user.value;
   set user(UserData user) => _user.value = user;
+
+  Rx<BodyInformation> _bodyInformation = BodyInformation().obs;
+  BodyInformation get bodyInformation => _bodyInformation.value;
+  set bodyInformation(BodyInformation bodyInformation) =>
+      _bodyInformation.value = bodyInformation;
 
   Rx<String> _dayTitle = "".obs;
   String get dayTitle => _dayTitle.value;
@@ -64,9 +70,20 @@ class WorkoutProgramController extends GetxController {
     try {
       final data = await firestore.collection("usersData").doc(userid).get();
       user = UserData.fromJson(json.decode(json.encode(data.data())));
-      muscle = List.from(user.targetMuscle!.map((e) => e.muscle));
+      muscle = List.from(user.targetMuscle!);
     } catch (e) {
-      Get.offAll(HomeScreen());
+      log(e.toString());
+    }
+  }
+
+  Future getBodyInformation() async {
+    try {
+      final data =
+          await firestore.collection("bodyInformationData").doc(userid).get();
+      bodyInformation =
+          BodyInformation.fromJson(json.decode(json.encode(data.data())));
+    } catch (e) {
+      log(e.toString());
     }
   }
 
@@ -269,7 +286,7 @@ class WorkoutProgramController extends GetxController {
     loading = true;
     userid = (await StorageProvider.getUserToken())!;
     await getUserData();
-    await getProgramData();
+    await Future.wait([getBodyInformation(), getProgramData()]);
     loading = false;
     super.onInit();
   }

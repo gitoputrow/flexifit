@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/workout/controller/WorkoutProgressController.dart';
 import 'package:pain/theme/colors.dart';
-import '../../../widget/ButtonCustomMain.dart';
+import '../../../widget/CustomButton.dart';
 
 class WorkoutRestPage extends GetView<WorkoutProgressController> {
   const WorkoutRestPage({Key? key}) : super(key: key);

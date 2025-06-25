@@ -94,6 +94,7 @@ class RegistPageStep7 extends GetView<RegisterController> {
                   SizedBox(height: 26,),
                   TextFieldCustom(
                     name: "username",
+                    isUsername: true,
                     onChanged: (text) {
                       controller.continueRegistFunc();
                     },

@@ -55,12 +55,12 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCF2L1K-qCdX0EVtkBbKfj6SDTo-Fc78y0',
-    appId: '1:1038745400119:android:da7735590305d1dd6de0b2',
-    messagingSenderId: '1038745400119',
-    projectId: 'paindatabase-9f08d',
-    databaseURL: 'https://paindatabase-9f08d-default-rtdb.firebaseio.com',
-    storageBucket: 'paindatabase-9f08d.appspot.com',
+    apiKey: 'AIzaSyBZATFUQIlnYXujAsO8KtASZJuTOdfoLuw',
+    appId: '1:604634671998:android:cd6318dbdcd52d9a7b612f',
+    messagingSenderId: '604634671998',
+    projectId: 'boundfit-f941c',
+    databaseURL: 'https://boundfit-f941c-default-rtdb.firebaseio.com',
+    storageBucket: 'boundfit-f941c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

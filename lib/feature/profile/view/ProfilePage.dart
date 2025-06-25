@@ -5,17 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:pain/feature/MainController.dart';
 import 'package:pain/feature/profile/controller/ProfileController.dart';
 import 'package:pain/feature/profile/view/widgets/MyProfilePage.dart';
-import 'package:pain/feature/profile/view/widgets/MyProgramPage.dart';
+
 import 'package:pain/controller/DashboardController.dart';
-import 'package:pain/widget/BottomSheetPicture.dart';
+import 'package:pain/widget/MediaWidget.dart';
 import 'package:pain/widget/CustomAlertDialog.dart';
 import 'package:pain/widget/CustomRadioButton.dart';
 import 'package:pain/widget/CustomRadioButtonCircle.dart';
 import 'package:pain/widget/ProgramCard.dart';
+import 'package:pain/widget/ShimmerLoading.dart';
 
-import '../../../widget/ButtonCustomMain.dart';
+import '../../../theme/colors.dart';
+import '../../../widget/CustomButton.dart';
+import 'widgets/GoalsWidget.dart';
+import 'widgets/SocialMediaSummaryCard.dart';
+import 'widgets/TargetZoneWidget.dart';
+import 'widgets/WorkoutPerWeekWidget.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({Key? key}) : super(key: key);
@@ -24,234 +32,188 @@ class ProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(10, 12, 13, 1),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Profile",
-                              textScaleFactor: 1,
-                              style: TextStyle(
-                                  fontSize: 22, fontFamily: 'PoppinsBoldSemi', color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(right: MediaQuery.of(context).size.width / 2.7),
-                              child: Divider(
-                                thickness: 3,
-                                color: Color.fromRGBO(255, 255, 255, 0.5),
-                              ),
-                            ),
-                            Obx(() => DropdownButtonHideUnderline(
-                                  child: DropdownButton2(
-                                    items: controller.items
-                                        .map((item) => DropdownMenuItem<String>(
-                                            value: item,
-                                            child: Text(
-                                              item,
-                                              textScaleFactor: 1,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w700),
-                                            )))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      controller.selectedValue = value as String;
-                                    },
-                                    value: controller.selectedValue,
-                                    alignment: Alignment.centerLeft,
-                                    buttonStyleData: ButtonStyleData(
-                                      width: MediaQuery.of(context).size.width / 2.5
-                                    ),
-                                    dropdownStyleData: DropdownStyleData(
-                                      decoration: BoxDecoration(
-                                        color: Color.fromRGBO(173, 5, 24, 1),
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(color: Colors.white))
-                                    ),
-                                    selectedItemBuilder: ((context) {
-                                      return controller.items
-                                          .map((item) => DropdownMenuItem<String>(
-                                                value: item,
-                                                child: Text(
-                                                  item,
-                                                  textScaleFactor: 1,
-                                                  style: TextStyle(
-                                                      color: Color.fromRGBO(255, 255, 255, 1),
-                                                      fontWeight: FontWeight.w600,
-                                                      fontSize: 18),
-                                                ),
-                                              ))
-                                          .toList();
-                                    }),
-                                  ),
-                                ))
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        icon: Image.asset("asset/Image/settingprofile.png",width: 42,height: 42,),
-                        
-                        onPressed: () {
-                          Get.toNamed("/settingpage", arguments: controller.user);
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Obx(() =>
-                      controller.selectedValue == "My Program" ? MyProgramPage() : MyProfilePage())
-                  // Text(
-                  //   "My Body",
-                  //   style: TextStyle(fontSize: 22, fontFamily: 'RubikReguler', color: Colors.white),
-                  // ),
-                ],
-              ),
+            SizedBox(
+              height: 30,
             ),
-            // SizedBox(
-            //   height: 25,
-            // ),
-            // SizedBox(
-            //     height: MediaQuery.of(context).size.height / 1.47,
-            //     width: MediaQuery.of(context).size.width,
-            //     child: Obx(() {
-            //       print(controller.userPhotoLength);
-            //       return PageView(
-            //         pageSnapping: true,
-            //         padEnds: true,
-            //         controller: PageController(viewportFraction: 0.87),
-            //         children: [
-            //           Container(
-            //             padding: EdgeInsets.symmetric(horizontal: 15),
-            //             child: ProgramCard(
-            //               width: MediaQuery.of(context).size.width,
-            //               height: MediaQuery.of(context).size.height / 1.47,
-            //               imageUrl: null,
-            //               days: controller.imageSource == null
-            //                   ? ""
-            //                   : DateFormat('EEEE').format(DateTime.now()).toString(),
-            //               WorkoutName: controller.imageSource == null
-            //                   ? ""
-            //                   : DateFormat('d MMMM yyyy').format(DateTime.now()).toString(),
-            //               imageSource: controller.imageSource,
-            //               cameraTap: () {
-            //                 Get.bottomSheet(BottomSheetPicture(pickImageCamera: () async {
-            //                   await controller.PickImage(ImageSource.camera);
-            //                 }, pickImageGallery: () {
-            //                   controller.PickImage(ImageSource.gallery);
-            //                 }));
-            //               },
-            //             ),
-            //           ),
-            //           if (controller.userPhotoLength != 0)
-            //             for (var i = 0; i < controller.userPhotoLength; i++)
-            //               Container(
-            //                 padding: EdgeInsets.symmetric(horizontal: 15),
-            //                 child: ProgramCard(
-            //                   width: MediaQuery.of(context).size.width,
-            //                   height: MediaQuery.of(context).size.height / 1.47,
-            //                   imageUrl: controller.userPhoto[i].url,
-            //                   days: controller.userPhoto[i].days!,
-            //                   WorkoutName: controller.userPhoto[i].date!,
-            //                 ),
-            //               )
-            //         ],
-            //       );
-
-            //     })),
-            // SizedBox(
-            //   height: 30,
-            // ),
-            // Obx(
-            //   () => controller.imageSource == null
-            //       ? SizedBox()
-            //       : Container(
-            //           padding: EdgeInsets.symmetric(horizontal: 30),
-            //           child: Row(
-            //             children: [
-            //               Expanded(
-            //                 child: Column(
-            //                   crossAxisAlignment: CrossAxisAlignment.stretch,
-            //                   children: [
-            //                     Obx(
-            //                       () => ButtonCustomMain(
-            //                           onPressed: () async {
-            //                             Get.dialog(CustomAlertDialog(
-            //                               backgroundColor: Color.fromRGBO(10, 12, 13, 0.8),
-            //                               title: "Do you want to upload this picture?",
-            //                               fontColor: Color.fromARGB(204, 255, 255, 255),
-            //                               fontSize: 20,
-            //                               iconColor: Colors.white,
-            //                               onPressedno: (() {
-            //                                 Get.back();
-            //                                 controller.imageSource = null;
-            //                               }),
-            //                               onPressedyes: () async {
-            //                                 Get.back();
-            //                                 await controller.uploadImage();
-            //                               },
-            //                             ));
-            //                           },
-            //                           alignText: Alignment.center,
-            //                           borderRadius: 15,
-            //                           title: controller.test.value,
-            //                           colorText: Colors.white,
-            //                           primary: Color.fromRGBO(205, 5, 27, 0.8),
-            //                           permission: true),
-            //                     )
-            //                   ],
-            //                 ),
-            //               ),
-            //               SizedBox(
-            //                 width: 35,
-            //               ),
-            //               Expanded(
-            //                 child: Column(
-            //                   crossAxisAlignment: CrossAxisAlignment.stretch,
-            //                   children: [
-            //                     Obx(
-            //                       () => ButtonCustomMain(
-            //                           onPressed: () {
-            //                             controller.imageSource = null;
-            //                           },
-            //                           alignText: Alignment.center,
-            //                           borderRadius: 15,
-            //                           colorText: Colors.black,
-            //                           title: controller.testw.value,
-            //                           primary: Color.fromRGBO(255, 255, 255, 1),
-            //                           permission: true),
-            //                     )
-            //                   ],
-            //                 ),
-            //               )
-            //             ],
-            //           ),
-            //         ),
-            // )
+            Stack(
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Profile",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'PoppinsBoldSemi',
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Divider(
+                      endIndent: MediaQuery.of(context).size.width / 1.95,
+                      thickness: 2,
+                      color: const Color.fromRGBO(255, 255, 255, 0.5),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      "See Your Own Program",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  right: 0,
+                  child: GestureDetector(
+                    child: Image.asset(
+                      "asset/Image/settingprofile.png",
+                      width: 44,
+                      height: 44,
+                    ),
+                    onTap: () async {
+                      if (controller.changeDataCheck) {
+                        await controller.changeProgram(toSettingPage: true);
+                        return;
+                      }
+                      Get.toNamed("/settingpage", arguments: controller.user);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: LiquidPullToRefresh(
+                backgroundColor: primaryColor,
+                showChildOpacityTransition: false,
+                color: backgroundColor,
+                springAnimationDurationInMilliseconds: 500,
+                height: 140,
+                onRefresh: () async => await controller.getUserData(),
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Goals",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'RubikReguler',
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Obx(
+                      () => GoalsWidget(
+                        goalValue: controller.goalTemp,
+                        onChange: (section, value) {
+                          controller.changeData(section, value);
+                        },
+                        isLoading: controller.loading,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "Target Zones",
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'RubikReguler',
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Obx(() => TargetZoneWidget(
+                        muscleValue: controller.muscleTemp.toList(),
+                        onChange: (section, value) {
+                          controller.changeData(section, value);
+                        },
+                        isLoading: controller.loading)),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      "Workout Per Week",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'RubikReguler',
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Row(
+                      children: [
+                        Obx(
+                          () => WorkoutPerWeekWidget(
+                              physicValue: controller.physicTemp,
+                              onChange: (section, value) {
+                                controller.changeData(section, value);
+                              },
+                              isLoading: controller.loading),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const Text(
+                      "My Social Media",
+                      textScaleFactor: 1,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'RubikReguler',
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    // ShimmerLoading(
+                    //   isLoading: controller.loading,
+                    //   child: ButtonCustomMain(
+                    //     primary: Colors.white,
+                    //     colorText: Colors.black,
+                    //   onPressed: () {
+                    //     Get.toNamed("/userprofilepage",
+                    //         arguments: {"id": controller.user.id});
+                    //   },
+                    //   title: "My Social Media Profile",
+                    //   borderRadius: 16,
+                    //   padding: EdgeInsets.all(16),
+                    // ),
+                    // ),
+                    Obx(() => SocialMediaSummaryCard(
+                        data: controller.user, isLoading: controller.loading)),
+                    SizedBox(
+                      height: 20,
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),

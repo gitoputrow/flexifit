@@ -76,11 +76,19 @@ class CustomBottomNav extends StatelessWidget {
               backgroundColor: Colors.black),
           BottomNavigationBarItem(
               activeIcon:
-                  Icon(IconlyBold.discovery, color: Colors.white, size: 40),
-              icon: Icon(
-                IconlyLight.discovery,
+                  Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: const Icon(
+                    Icons.photo_library_rounded,
+                    color: Colors.black,
+                    size: 32,
+                  )),
+              icon: const Icon(
+                Icons.photo_library_rounded,
                 color: Colors.white,
-                size: 39,
+                size: 36,
               ),
               label: "a",
               backgroundColor: Colors.black),

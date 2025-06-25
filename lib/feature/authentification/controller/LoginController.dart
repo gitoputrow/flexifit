@@ -61,21 +61,26 @@ class LoginController extends GetxController {
         .where('username', isEqualTo: form.currentState!.value['username'])
         .get();
     if (data.docs.isEmpty) {
+      Get.back();
       ToastMessageCustom.ToastMessage("Username Not Found", primaryDarkColor,
           textColor: Colors.white);
     } else {
       try {
-        firebaseAuth.signInWithEmailAndPassword(
+        await firebaseAuth.signInWithEmailAndPassword(
             email: data.docs.first.data()['email'],
             password: form.currentState!.value['pass']);
         final token = data.docs.first.id;
         await StorageProvider.setUserToken(token);
         Get.offAllNamed("/dashboard", arguments: 0);
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
+        log("catch firebase : " + e.code.toString());
+        if (e.code == 'wrong-password') {
+          Get.back();
           ToastMessageCustom.ToastMessage("Wrong Password", primaryDarkColor,
               textColor: Colors.white);
         }
+      } catch (e) {
+        log("catch : " + e.toString());
       }
     }
   }

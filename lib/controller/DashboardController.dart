@@ -13,18 +13,18 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pain/feature/places/views/PlacesPageView.dart';
-import 'package:pain/page/IntroPage/HomeScreen.dart';
-import 'package:pain/page/IntroPage/splashscreen.dart';
-import 'package:pain/feature/workout_challange/view/ChallangePage.dart';
+import 'package:pain/feature/places/views/WorkoutPlacesPageView.dart';
+import 'package:pain/feature/authentification/view/HomeScreen.dart';
+import 'package:pain/feature/authentification/view/splashscreen.dart';
+import 'package:pain/feature/challenge/view/ChallangePage.dart';
 import 'package:pain/feature/workout_program/view/WorkoutProgramPage.dart';
 import 'package:pain/feature/profile/view/ProfilePage.dart';
 import 'package:pain/feature/social_media/view/SosmedPage.dart';
 import 'package:pain/StorageProvider.dart';
-import 'package:pain/model/Challange.dart';
+import 'package:pain/feature/challenge/models/ChallengeModel.dart';
 import 'package:pain/model/ProgramWO.dart';
-import 'package:pain/model/UserData.dart';
-import 'package:pain/model/WorkoutData.dart';
+import 'package:pain/feature/authentification/models/UserData.dart';
+import 'package:pain/feature/workout/models/WorkoutData.dart';
 import 'package:pain/widget/BasicLoader.dart';
 import 'package:pain/widget/CustomAlertDialog.dart';
 import 'package:pain/widget/Loading.dart';
@@ -103,7 +103,7 @@ class DashboardController extends GetxController {
   List<Widget> pages = [
     WorkoutProgramPage(),
     ChallangePage(),
-    Placespageview(),
+    WorkoutPlacesPageView(),
     SosmedPage(),
     ProfilePage()
   ];
@@ -178,51 +178,6 @@ class DashboardController extends GetxController {
   // //Function to changing page
   void changePage(int index) {
     currentIndex = index;
-    // if (goalTemp == user.goal! &&
-    //     physicTemp == user.physical! &&
-    //     listEquals(muscleTemp, muscle)) {
-    //   currentIndex = index;
-    // } else {
-    //   Get.dialog(CustomAlertDialog(
-    //       onPressedno: () {
-    //         muscleTemp.clear();
-    //         muscleTemp.addAll(muscle);
-    //         physicTemp = user.physical!;
-    //         goalTemp = user.goal!;
-    //         Get.back();
-    //         currentIndex = index;
-    //       },
-    //       onPressedyes: () async {
-    //         Get.back();
-    //         Get.dialog(BasicLoader());
-    //         muscleTemp.sort();
-    //         List<Map<String, dynamic>> muscledata = [];
-    //         for (var i = 0; i < muscleTemp.length; i++) {
-    //           muscledata.add({"muscle": muscleTemp[i]});
-    //         }
-    //         user.physical = physicTemp;
-    //         user.goal = goalTemp;
-
-    //         await database
-    //             .child("userDatabase")
-    //             .child("$userid")
-    //             .set(user.toJson());
-    //         await database
-    //             .child("userDatabase")
-    //             .child("$userid")
-    //             .child("targetMuscle")
-    //             .set(muscledata);
-    //         await getUserData();
-    //         await getProgramData();
-    //         Get.back();
-    //         currentIndex = index;
-    //       },
-    //       backgroundColor: Color.fromRGBO(10, 12, 13, 0.8),
-    //       title: "Do you want to change your program?",
-    //       fontColor: Color.fromARGB(204, 255, 255, 255),
-    //       fontSize: 20,
-    //       iconColor: Colors.white));
-    // }
   }
 
   // //Function to get user data

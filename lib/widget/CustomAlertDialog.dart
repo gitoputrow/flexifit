@@ -24,7 +24,7 @@ class CustomAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: backgroundColor,
+      backgroundColor: tertiaryColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
       contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       content: Container(

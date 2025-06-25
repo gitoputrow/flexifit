@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pain/feature/authentification/controller/RegisterController.dart';
 import 'package:pain/widget/BasicLoader.dart';
-import 'package:pain/widget/ButtonCustomMain.dart';
+import 'package:pain/widget/CustomButton.dart';
 import 'package:pain/widget/ToastMessageCustom.dart';
 
 class RegisterPage extends GetView<RegisterController> {
