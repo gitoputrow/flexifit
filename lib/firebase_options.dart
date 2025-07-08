@@ -56,7 +56,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBZATFUQIlnYXujAsO8KtASZJuTOdfoLuw',
-    appId: '1:604634671998:android:cd6318dbdcd52d9a7b612f',
+    appId: '1:604634671998:android:ffa1a318104a88ec7b612f',
     messagingSenderId: '604634671998',
     projectId: 'boundfit-f941c',
     databaseURL: 'https://boundfit-f941c-default-rtdb.firebaseio.com',

@@ -30,17 +30,17 @@ class LoginPage extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SvgPicture.asset(
                         "asset/Icon/app_logo.svg",
                         width: 96,
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Text(
                     "Login",
@@ -51,10 +51,10 @@ class LoginPage extends GetView<LoginController> {
                         color: Color.fromRGBO(255, 255, 255, 0.8)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Text(
                     "Sign in to your Account",
@@ -66,7 +66,7 @@ class LoginPage extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Column(
@@ -78,7 +78,7 @@ class LoginPage extends GetView<LoginController> {
                       hintText: "Insert Your Username",
                       imageSource: "asset/Icon/profileIconLogin.png",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 28,
                     ),
                     TextFieldCustom(
@@ -89,18 +89,21 @@ class LoginPage extends GetView<LoginController> {
                       imageSource: "asset/Icon/passIconLogin.png",
                       prefixIconScale: 11,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 16,
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        "Forgot your Password?",
-                        textScaleFactor: 1,
-                        style: TextStyle(
-                          fontFamily: 'PoppinsLight',
-                          fontSize: 12,
-                          color: Color.fromRGBO(255, 255, 255, 0.5),
+                    GestureDetector(
+                      onTap: () => Get.toNamed("/forgotpass"),
+                      child: const Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          "Forgot your Password?",
+                          textScaleFactor: 1,
+                          style: TextStyle(
+                            fontFamily: 'PoppinsLight',
+                            fontSize: 12,
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                          ),
                         ),
                       ),
                     )
@@ -118,7 +121,7 @@ class LoginPage extends GetView<LoginController> {
                         },
                         title: "Login",
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
                       Align(
@@ -131,7 +134,7 @@ class LoginPage extends GetView<LoginController> {
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 26,
                       ),
                     ],

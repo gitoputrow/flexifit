@@ -34,23 +34,6 @@ class LoginController extends GetxController {
   Rx<TextEditingController> tecUsername = TextEditingController().obs;
   Rx<TextEditingController> tecPassword = TextEditingController().obs;
 
-  Future<String?> checkUsernameandPass() async {
-    final data = await database
-        .child("userDatabase")
-        .orderByChild('username')
-        .equalTo(form.currentState!.value['username'])
-        .once();
-    if (data.snapshot.exists) {
-      usernameExist = true;
-      if (data.snapshot.children.first.child('pass').value ==
-          form.currentState!.value['pass']) {
-        passCheck = true;
-        return data.snapshot.children.first.key;
-      }
-    }
-    return null;
-  }
-
   Future login() async {
     if (!form.currentState!.saveAndValidate()) {
       return;

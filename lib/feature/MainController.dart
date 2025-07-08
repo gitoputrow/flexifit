@@ -34,7 +34,7 @@ class MainController extends GetxController {
 
   @override
   void onInit() async {
-    // await UpdateServices().getUpdateStatus();
+    await UpdateServices().getUpdateStatus();
     super.onInit();
   }
 

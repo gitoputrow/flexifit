@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:pain/feature/MainController.dart';
+import 'package:pain/feature/authentification/controller/ForgotPasswordController.dart';
 import 'package:pain/feature/authentification/controller/RegisterController.dart';
+import 'package:pain/feature/authentification/view/ForgotPasswordPage.dart';
 import 'package:pain/feature/places/controllers/AddReportController.dart';
 import 'package:pain/feature/places/controllers/WorkoutPlacesController.dart';
 import 'package:pain/feature/places/controllers/PlacesDetailController.dart';
@@ -55,7 +57,7 @@ class appRoutes {
     ),
     GetPage(
       name: "/login",
-      page: () => LoginPage(),
+      page: () => const LoginPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut(
           () => LoginController(),
@@ -64,7 +66,7 @@ class appRoutes {
     ),
     GetPage(
       name: "/regist",
-      page: () => RegisterPage(),
+      page: () => const RegisterPage(),
       binding: BindingsBuilder(
         () => Get.lazyPut(
           () => RegisterController(),
@@ -73,7 +75,7 @@ class appRoutes {
     ),
     GetPage(
         name: "/dashboard",
-        page: () => MainView(),
+        page: () => const MainView(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => MainController(),
@@ -89,7 +91,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/workoutlist",
-        page: () => WorkoutListPage(),
+        page: () => const WorkoutListPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => WorkoutListController(),
@@ -97,7 +99,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/workoutstart",
-        page: () => WorkoutStartPage(),
+        page: () => const WorkoutStartPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => WorkoutProgressController(),
@@ -105,7 +107,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/workoutrest",
-        page: () => WorkoutRestPage(),
+        page: () => const WorkoutRestPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => WorkoutProgressController(),
@@ -113,7 +115,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/workoutfinish",
-        page: () => WorkoutFinishPage(),
+        page: () => const WorkoutFinishPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => WorkoutFinishController(),
@@ -121,7 +123,7 @@ class appRoutes {
         )),
     GetPage(
       name: "/workoutprepare",
-      page: () => WorkoutPreparePage(),
+      page: () => const WorkoutPreparePage(),
     ),
     GetPage(
         name: "/settingpage",
@@ -133,7 +135,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/editprofilepage",
-        page: () => EditProfilePage(),
+        page: () => const EditProfilePage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => EditProfileController(),
@@ -149,7 +151,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/addpostpage",
-        page: () => AddPostPage(),
+        page: () => const AddPostPage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => AddPostController(),
@@ -165,7 +167,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/userprofilepage",
-        page: () => SocialMediaProfilePage(),
+        page: () => const SocialMediaProfilePage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => SocialMediaProfileController(),
@@ -173,7 +175,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/placedetailpage",
-        page: () => PlacesDetailPageView(),
+        page: () => const PlacesDetailPageView(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => PlacesDetailController(),
@@ -181,7 +183,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/addreportpage",
-        page: () => AddReportsView(),
+        page: () => const AddReportsView(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => AddReportController(),
@@ -189,7 +191,7 @@ class appRoutes {
         )),
     GetPage(
         name: "/placereportpage",
-        page: () => PlaceReportView(),
+        page: () => const PlaceReportView(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => ReportsPlaceController(),
@@ -197,10 +199,18 @@ class appRoutes {
         )),
     GetPage(
         name: "/searchuserpage",
-        page: () => SearchUsernamePage(),
+        page: () => const SearchUsernamePage(),
         binding: BindingsBuilder(
           () => Get.lazyPut(
             () => SearchUsernameController(),
+          ),
+        )),
+    GetPage(
+        name: "/forgotpass",
+        page: () => const ForgotPasswordPage(),
+        binding: BindingsBuilder(
+          () => Get.lazyPut(
+            () => ForgotPasswordController(),
           ),
         )),
   ];

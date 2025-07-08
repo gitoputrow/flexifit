@@ -115,6 +115,10 @@ class TextFieldCustom extends StatelessWidget {
                   return 'Email is Invalid';
                 }
 
+                if (isObscureText && val != null && val.length < 6) {
+                    return 'Password must be at least 6 characters';
+                }
+
                 if (isUsername && val != null && val.contains(" ")) {
                   return 'Username Cannot Contain Space';
                 }
