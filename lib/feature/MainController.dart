@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/profile/controller/ProfileController.dart';
 import 'package:pain/feature/workout_program/controller/WorkoutProgramController.dart';
 import 'package:pain/services/update/update_services.dart';

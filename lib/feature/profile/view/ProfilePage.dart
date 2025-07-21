@@ -9,8 +9,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pain/feature/MainController.dart';
 import 'package:pain/feature/profile/controller/ProfileController.dart';
 import 'package:pain/feature/profile/view/widgets/MyProfilePage.dart';
-
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/widget/MediaWidget.dart';
 import 'package:pain/widget/CustomAlertDialog.dart';
 import 'package:pain/widget/CustomRadioButton.dart';

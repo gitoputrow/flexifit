@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/workout/controller/WorkoutProgressController.dart';
 import 'package:pain/widget/ShimmerLoading.dart';
 import '../../../widget/CustomButton.dart';

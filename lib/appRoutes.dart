@@ -40,8 +40,6 @@ import 'package:pain/feature/social_media/view/AddPostPage.dart';
 import 'package:pain/feature/challenge/view/ChallangeLevelPage.dart';
 import 'package:pain/feature/workout/view/WorkoutPreparePage.dart';
 import 'package:pain/feature/authentification/view/RegisterPage.dart';
-import 'package:pain/binding/AuthentificationBinding.dart';
-import 'package:pain/binding/DashboardBinding.dart';
 
 import 'feature/authentification/controller/LoginController.dart';
 import 'feature/authentification/view/LoginPage.dart';

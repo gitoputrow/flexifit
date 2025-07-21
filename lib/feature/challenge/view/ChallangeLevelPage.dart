@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/challenge/controller/WorkoutChallengeDetailController.dart';
 import 'package:pain/theme/colors.dart';
 import 'package:pain/feature/challenge/view/widgets/ChallangeLevelCard.dart';

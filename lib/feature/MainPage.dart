@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 import 'package:pain/feature/MainController.dart';
 import 'package:pain/widget/CustomBottomNav.dart';
 import 'package:pain/widget/Loading.dart';
-
-import '../controller/DashboardController.dart';
-
 class MainView extends GetView<MainController> {
   const MainView({super.key});
 

@@ -2,9 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/profile/controller/ProfileController.dart';
-import 'package:pain/feature/social_media/view/widgets/PostUserCard.dart';
 
 class MyProfilePage extends GetView<ProfileController> {
   const MyProfilePage({super.key});

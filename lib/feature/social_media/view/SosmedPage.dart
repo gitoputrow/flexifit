@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/theme/colors.dart';
 import 'package:pain/widget/CustomButton.dart';
 import 'package:pain/widget/SearchBarCustomSosmed.dart';

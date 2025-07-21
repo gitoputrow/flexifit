@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/workout/controller/WorkoutListController.dart';
 import 'package:pain/theme/colors.dart';
 import 'package:pain/widget/CustomButton.dart';

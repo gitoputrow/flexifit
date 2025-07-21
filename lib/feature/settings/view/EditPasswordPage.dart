@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/settings/controller/EditPasswordController.dart';
 import 'package:pain/widget/TextFieldSettingCustom.dart';
 import '../../../theme/colors.dart';

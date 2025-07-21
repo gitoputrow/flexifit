@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pain/controller/DashboardController.dart';
 import 'package:pain/feature/workout/controller/WorkoutFinishController.dart';
 import '../../../theme/colors.dart';
 import '../../../widget/CustomButton.dart';
